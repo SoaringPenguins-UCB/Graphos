@@ -65,8 +65,8 @@ h1 span, h5 {
 .codrops-top {
 	line-height: 24px;
 	font-size: 11px;
-	background: #fff;
-	background: rgba(255, 255, 255, 0.8);
+	background: rgb(87, 178, 253);
+	background: rgba(60, 122, 238, 0.8);
 	text-transform: uppercase;
 	z-index: 9999;
 	position: relative;
