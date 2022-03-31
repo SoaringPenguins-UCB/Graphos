@@ -1,134 +1,558 @@
 <!DOCTYPE html>
-<html language="es">
-<html>
-  <head>
-    <title>Soaring Penguins | Jhonson</title>
-    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js" type="text/javascript"></script>
-        <link href="vis.css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
-        <style type="text/css">
+<html lang="es">
+
+<head>
+
+    <meta charset="utf-8">
+    <title>Analisis de Algoritmos</title>
+    <script type="text/javascript" src="dist/vis.js"></script>
+    <link href="dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="estilos.css">
+    <script type="text/javascript">
+        var nodes = null;
+        var edges = null;
+        var network = null;
+        // randomly create some nodes and edges
+        var data = {};//getScaleFreeNetwork(25);
+        var seed = 2;
+
+        function setDefaultLocale() 
+        {
+            var defaultLocal = navigator.language;
+            var select = document.getElementById('locale');
+            select.selectedIndex = 0; // set fallback value
+            for (var i = 0, j = select.options.length; i < j; ++i) 
+            {
+                if (select.options[i].getAttribute('value') === 'es') 
+                {
+                    select.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+        
+        function destroy() 
+        {
+              if (network !== null) 
+              {
+                  network.destroy();
+                  network = null;
+              }
+        }
+
+        function draw() 
+        {
+            destroy();
+            nodes = [];
+            edges = [];
+            var conta=1;
+            var container = document.getElementById('mynetwork');
+            var options = 
+            {
+                nodes: 
+                {
+                    shape: 'box',
+                },
+                edges: 
+                {
                     
-        #mynetwork{
-            width: 1310px;
-            height: 500px;
-            border: 2px solid rgb(0, 162, 255);
-            
-        background-color: #a0dcff;
-        }
-        #cuerpo{
-        background-color: #0e9fff;
-        }
-        body{
-  padding-top:15px;
-  font-family: 'Open Sans', sans-serif;
-	font-size:13px;
-}
-.box {
-  border: 5px solid rgb(255, 255, 255);
-  background-color: lightgray;
-  width: 1310px;
-  height: 500px;
-}
-</style>
+                    arrows:'to',
+                    font:
+                    {
+                      align:'horizontal'
+                    }
+                },
+                physics:false,
+                //layout: {randomSeed:seed}, // just to make sure the layout is the same when the locale is changed
+                locale: 'es',
+                manipulation: {
+                  addNode: function (data, callback) {
+                    // filling in the popup DOM elements
+                    //document.getElementById('node-operation').innerHTML = "Añadir nodo";
+                    //editNode(data, callback);
+                    data.label=conta+"";
+                    callback(data);
+                    conta++;
+                    //console.log(data);
+                  },
+                  /*editNode: function (data, callback) {
+                    // filling in the popup DOM elements
+                    document.getElementById('node-operation').innerHTML = "Editar nodo";
+                    editNode(data, callback);
+                  },*/
+                  addEdge: function (data, callback) {
+                    if (data.from == data.to) {
+                      var r = confirm("Crear un bucle?");
+                      if (r != true) {
+                        callback(null);
+                        return;
+                      }
+                    }
+                    document.getElementById('edge-operation').innerHTML = "Añadir Arista";
+                    editEdgeWithoutDrag(data, callback);
+                  },
+                  editEdge: {
+                    editWithoutDrag: function(data, callback) {
+                      document.getElementById('edge-operation').innerHTML = "Editar Arista";
+                      editEdgeWithoutDrag(data,callback);
+                    }
+                  }
+                }
+              };
+             // console.log(data);
+              network = new vis.Network(container, data, options);
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="css/style-quienes-somos.css">
-	<meta charset="utf-8">
-	<meta name="keywords" content="">
-	<title>Soaring Penguins | Quiénes Somos</title>
-  <h1>EASY FOOD</h1>
-	<link href='http://fonts.googleapis.com/css?family=Quicksand:300,400,700|Strait' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" type="text/css" href="css/demo.css" />
-	<link rel="stylesheet" type="text/css" href="css/slicebox.css" />
-	<link rel="stylesheet" type="text/css" href="css/custom.css" />
-	<script type="text/javascript" src="js/modernizr.custom.46884.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-	<script type="text/javascript" src="js/ajax.js" ></script>
-    <meta http-equiv="Content-Type"content="text/html; charset=windows-1252">
-  <META NAME="revisit-after" content="8 days">
-  <META NAME="robots" content="index,follow">
-  <META NAME="distribution" content="global">
-  </head>
-  <header>
-    <img src="https://tja.ucb.edu.bo/wp-content/uploads/2020/09/cropped-logo-UCB-300x300.png" alt="logo" style="width: 90px; height: 90px;" />
-<nav>
-  <ul>
-    <li id="ini"><a href="inicio.html">Inicio</a></li>
+            }
 
-    <li id="who"><a href="contactanos.html" id="tooltip">Contactanos</a></li>
+            function editNode(data, callback) {
+              document.getElementById('node-label').value = data.label;
+              document.getElementById('node-saveButton').onclick = saveNodeData.bind(this, data, callback);
+              //console.log(callback);
+             // document.getElementById('node-cancelButton').onclick = clearNodePopUp.bind();
+              document.getElementById('node-popUp').style.display = 'block';
+            }
 
-    <li id="con"><a href="ayuda.html">Ayuda</a></li>
+            function clearNodePopUp() {
+              document.getElementById('node-saveButton').onclick = null;
+             // document.getElementById('node-cancelButton').onclick = null;
+              document.getElementById('node-popUp').style.display = 'none';
+            }
 
-  </ul>
-</nav>
+            function cancelNodeEdit(callback) {
+              clearNodePopUp();
+              callback(null);
+            }
+
+            function saveNodeData(data, callback) {
+              data.label = document.getElementById('node-label').value;
+              clearNodePopUp();
+              callback(data);
+            }
+
+            function editEdgeWithoutDrag(data, callback) {
+              // filling in the popup DOM elements
+              document.getElementById('edge-label').value = data.label;
+              document.getElementById('edge-saveButton').onclick = saveEdgeData.bind(this, data, callback);
+              //document.getElementById('edge-cancelButton').onclick = cancelEdgeEdit.bind(this,callback);
+              document.getElementById('edge-popUp').style.display = 'block';
+            }
+
+            function clearEdgePopUp() {
+              document.getElementById('edge-saveButton').onclick = null;
+              //document.getElementById('edge-cancelButton').onclick = null;
+              document.getElementById('edge-popUp').style.display = 'none';
+            }
+
+            function cancelEdgeEdit(callback) {
+              clearEdgePopUp();
+              callback(null);
+            }
+
+            function saveEdgeData(data, callback) {
+              if (typeof data.to === 'object')
+                data.to = data.to.id
+              if (typeof data.from === 'object')
+                data.from = data.from.id
+              data.label = document.getElementById('edge-label').value;
+              clearEdgePopUp();
+              callback(data);
+            }
+            function iden_grafo(){
+              return document.getElementById('grafo').value;
+            }
+            function init() {
+              setDefaultLocale();
+              document.getElementById('locale').style.display = 'none';
+              draw();
+            }
+
+  </script>
+    <!-- Custom styles for this template -->
+</head>
+
+<body onload="init();" style="background-color: #70adac ">
+<header id="titulo">
+  <center>
+      <h1>ANALISIS DE ALGORITMOS</h1>
+      <h2>JHONSON</h2>
+  </center>
+   <aside id="columna2">
+		<nav id="menu">
+			<li><a href="introduccion.html">GRAFOS</a></li><br><br>
+			
+			<li><a href="jhonson.html">JHONSON</a></li><br><br>
+			
+		</nav>
+   </aside>
+   <aside id="columna">
+	    <nav id="menu">
+            <li><button type="button" class="btn btn-primary" id="export_button" onclick="ver()">Resultado</button></li><br>
+            <li><button type="button" class="btn btn-primary " id="export_button1" onclick="actualizar()">Nuevo</button></li>
+         </nav>
+   </aside>
 </header>
+<center>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+               <p >
+                <!--  <label for="locale">Select a locale:</label>-->
+                  <select id="locale" onchange="draw();">
+                    <option value="en">en</option>
+                    <option value="de">de</option>
+                    <option value="es">es</option>
+                    <option value="it">it</option>
+                    <option value="nl">nl</option>
+                    <option value="pt-br">pt</option>
+                    <option value="ru">ru</option>
+                  </select>
+                </p>
+                <div id="node-popUp">
+                  <span id="node-operation">NODO</span> <br>
+                  <table style="margin:auto;">
+                   <!-- <tr>
+                      <td>id</td><td><input id="node-id" value="new value" /></td>
+                    </tr>-->
+                    <tr>
+                      <td>VALOR</td><td><input type="number" id="node-label" value="" ></td>
+                    </tr>
+                  </table>
+                  <input type="button" value="GUARDAR" id="node-saveButton" />
+                  <!--<input type="button" value="cancel" id="node-cancelButton" />-->
+                </div>
 
+                <div id="edge-popUp">
+                  <span id="edge-operation">ARISTA</span> <br>
+                  <table style="margin:auto;">
+                    <tr>
+                      <td>VALOR</td><td><input type="number" id="edge-label" value="" ></td>
+                    </tr></table>
+                  <input type="button"  value="GUARDAR" id="edge-saveButton" />
+                  <!--<input type="button" value="cancel" id="edge-cancelButton" />-->
+                </div>
 
-  <body id="cuerpo">
-      
-      
-      <div></div>
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-      <div class="container">
-        
-        <div id="mynetwork"></div>
-  
-  
+            </div>
         </div>
-      </div>
-      <table id="matrizFinal" class="table table-striped" >
-  
-      </table>
-      <!--<div class="d-grid gap-2">
-        <button onclick="asignacion('max')" class="botones">Max</button>
-        <button onclick="asignacion('min')" class="botones">Min</button>
-      </button>
-        
-      </div>
-  
-      <div class="d-grid gap-2">-->
-        
-        <button type="button" onclick="descarga()" class="btn btn-success">Guardar</button>
-        <button type="button" onclick="MostrarMatriz()" class="btn btn-success">Mostrar Matriz</button>
-  
-        
-      </div>
-  
-      
-  <!-- <label for="exampleFormControlFile1">Example file input</label>
-  <input type="file" class="form-control-file" id="file-input" > -->
-        
-  <div>
-    <input class="form-control form-control-lg" id="import" type="file">
-  </div>
-  <br>
-  
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <!--<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>-->
-          <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-        </div>
-        <div class="modal-body">
-          <div id=mensaje>
-  
-          </div>
-        </div>
-        <div class="modal-footer">
-         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
-        </div>
-      </div>
     </div>
-  </div>
-  
-      <br>
-  
-      <script src="asignacion.js"></script>
-    </body>
-    <div id="InfoContacto">
-			<dd>Soaring Penguins</dd>
-			<dd>La Paz - Bolivia</dd>
-		</div>
-	</body>
-  </html>
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                    <div id="mynetwork"></div>
+            </div>
+        </div>
+    </div>
+</center>
+    <script type="text/javascript">
+        var nodos_dia;
+        var id_dia;
+        function ver(){
+                //var ele=network.body.data.nodes._data;
+                var mostrar="\t\t\t";
+                //onsole.log(network.body);
+                var nodos= network.body.data.nodes.length;
+                var aristas=network.body.data.edges.length;
+                var id_nod="";
+                var temp_nodo="";
+                var id_arit="";
+                var temp_arit="";
+                //console.log("Nodos: "+nodos+" Aristas: "+aristas);
+
+                //
+                //En esta parte obtengo los  los nodos
+                //
+               // mostrar+="Estos son los nodos\n";
+                nodos_dia=[];
+                id_dia=[];
+                nodos_posix=[];
+                nodos_posiy=[];
+                for(var i=0;i<nodos;i++){
+                    id_nod=network.body.nodeIndices[i];//Obtencion del id
+                    temp_nodo=network.body.data.nodes._data[id_nod];
+                    //temp_nodo.label=i; //se captura el nodo como un objeto
+                    id_dia.push(temp_nodo.id);
+                    nodos_dia.push(temp_nodo.label);
+                    nodos_posix.push(temp_nodo.x);
+                    nodos_posiy.push(temp_nodo.y);
+                }
+                var aristas_a=[];
+                var aristas_a2=[];
+                for(var i=0;i<aristas;i++){
+                    aristas_a[i]=[];
+                    id_arit=network.body.edgeIndices[i];
+                    temp_arit=network.body.data.edges._data[id_arit];
+                    aristas_a2.push(temp_arit.id);
+                    var origen= indexofarray_b(temp_arit.from,id_dia);//ubicar_nodo(temp_arit.from);
+                    aristas_a[i].push(origen);
+                    var destino=indexofarray_b(temp_arit.to,id_dia); //ubicar_nodo(temp_arit.to);
+                    aristas_a[i].push(destino);
+                    var valor =temp_arit.label;
+                    aristas_a[i].push(valor);
+                   // console.log(origen+" "+destino);
+
+                    //console.log(valor);
+                    //mostrar+="Arista DE: "+origen+" HACIA: "+destino+" VALOR: "+valor+"\n";
+                }
+                //console.log(aristas_a2.length);
+                var nueva_matriz= new construir_matriz(nodos_dia,id_dia,aristas_a,aristas);
+                var inicio=def_ini(nueva_matriz.mat2,nodos);
+                var fin=def_fin(nueva_matriz.mat2,nodos);
+                var parti=new array_inicio(nueva_matriz.mat1,nueva_matriz.mat2,inicio,fin,nodos);
+                console.log('Inicio');
+                console.log(parti.i);
+                console.log('Llegada');
+                console.log(parti.l);
+                console.log('Holguras');
+                console.log(parti.h);
+                recorrido(parti.h);
+                //console.log(nueva_matriz);
+                redibujar(id_dia,nodos_dia,nodos_posix,nodos_posiy,parti.i,parti.l,nueva_matriz.mat1,parti.h,nueva_matriz.mat2);
+                //document.getElementById("resultado").innerHTML = mostrar;
+            }
+            function contarceros(matriz)
+            {
+              var n=0;
+              for(var i=0;i<matriz.length;i++)
+              {
+                for(var j=0;j<matriz.length;j++)
+                {
+                  if(matriz[i][j]==0)
+                    n++;
+                }
+              }
+              return n;
+            }
+            function recorrido(matriz)
+            {
+              var dir=[];
+              dir.push(1);
+              var n=0;
+              var c=contarceros(matriz);
+              for(var e=0;e<c;e++)
+              {
+                for(var i=0;i<matriz.length;i++)
+                {
+                  if(matriz[n][i]==0)
+                  {
+                    n=i;
+                    dir.push(i+1);
+                    break;
+                  }
+                }
+              }
+              console.log(dir);
+            }
+            function ubicar_nodo(id){
+                return network.body.data.nodes._data[id].label;
+            }
+            function indexofarray_b(val,arreglo){
+               // console.log("Tengo: "+arreglo.length);
+                for(var i=0;i<arreglo.length;i++){
+                  var n=val.localeCompare(arreglo[i])
+                  if(n==0){
+                    return i;
+                  }
+                }
+            }
+            function actualizar(){
+               location.reload();
+            }
+            function construir_matriz(nodos_dia,id_dia,aristas_a,aristas_a2){
+               //var tipo_g=document.getElementById('grafo').value;
+               var matriz1=[];
+               var matriz_pos=[];
+               //console.log(nodos_dia.length);
+               for(var i=0;i<nodos_dia.length;i++){
+                    matriz1[i]=[];
+                  for (var j = 0; j < nodos_dia.length; j++) {
+                    matriz1[i][j]=0;
+                  }
+               }
+                for(var i=0;i<nodos_dia.length;i++){
+                    matriz_pos[i]=[];
+                  for (var j = 0; j < nodos_dia.length; j++) {
+                    matriz_pos[i][j]=0;
+                  }
+               }
+
+                    for(var i=0;i<aristas_a2;i++){
+                      matriz1[aristas_a[i][0]][aristas_a[i][1]]=parseInt(aristas_a[i][2]);
+                      matriz_pos[aristas_a[i][0]][aristas_a[i][1]]=1;
+                    }
+               return {
+                  mat1:matriz1,
+                  mat2:matriz_pos
+               };
+
+            }
+
+           function def_ini(matriz,len){
+            var s;
+            var inicios=new Array();
+            for (var i = 0; i < len; i++) {
+              s=0;
+              for(var j=0;j<len;j++){
+                s+=parseInt(matriz[j][i]);
+              }
+              if(s==0){
+                inicios.push(i);
+              }
+            }
+            return inicios;
+          }
+          function def_fin(matriz,len){
+            var s;
+            var fin=new Array();
+            for (var i = 0; i < len; i++) {
+              s=0;
+              for(var j=0;j<len;j++){
+                s+=parseInt(matriz[i][j]);
+              }
+              if(s==0){
+                fin.push(i);
+              }
+            }
+            return fin;
+          }
+          function array_inicio(matriz,matriz_pos,inicio,fin,len){
+            //llena la cola
+            var cola=[];
+            //iniciar el vector de llegada
+            var partida=new Array();
+            for(var i=0;i<len;i++){
+              partida[i]=-1;
+            }
+            var llega=new Array();
+            for(var i=0;i<len;i++){
+              llega[i]=Number.MAX_VALUE;
+            }
+            for(i=0;i<inicio.length;i++){
+              partida[inicio[i]]=0;
+            }
+            console.log(partida);
+            //recorrido del inicio para adelante
+              for(var i=0;i<inicio.length;i++){
+                for(var j=0;j<len;j++){
+                  if(matriz_pos[inicio[i]][j]==1){
+                    cola.push(inicio[i]);
+                    cola.push(j);
+                  }
+                }
+              }
+              //console.log('Cola dinamica');
+              while(cola.length>0){
+
+                  var suma_temp=partida[cola[0]]+matriz[cola[0]][cola[1]];
+                  if(suma_temp>partida[cola[1]]){
+                        partida[cola[1]]=suma_temp;
+                  }
+                  console.log(partida);
+                  for(var i=0;i<len;i++){
+                     if(matriz_pos[cola[1]][i]!=0){
+                      cola.push(cola[1]);cola.push(i);//almacenamos posiciones
+                      console.log(cola);
+                     }
+                  }
+
+                cola.shift();cola.shift();
+              }
+              llega[fin[0]]=partida[fin[0]];
+              //console.log(llega);
+              //console.log(partida);
+              //recorrido de fin hacia atras
+               for(var i=0;i<fin.length;i++){
+                for(var j=0;j<len;j++){
+                  if(matriz_pos[j][fin[i]]==1){
+                    cola.push(j);
+                    cola.push(fin[i]);
+                  }
+                }
+              }
+              while(cola.length>0){
+
+                  var resta_temp=llega[cola[1]]-matriz[cola[0]][cola[1]];
+                  if(resta_temp<llega[cola[0]]){
+                        llega[cola[0]]=resta_temp;
+                  }
+                  console.log(llega);
+                  for(var i=0;i<len;i++){
+                     if(matriz_pos[i][cola[0]]!=0){
+                      cola.push(i);cola.push(cola[0]);//almacenamos posiciones
+                      console.log(cola);
+                     }
+                  }
+
+                cola.shift();cola.shift();
+              }
+            //matriz de holguras
+            var mat_h=[];
+            for(var i=0;i<len;i++){
+              mat_h[i]=[];
+              for(var j=0;j<len;j++){
+                mat_h[i][j]=-1;
+              }
+            }
+            for(var i=0;i<len;i++){
+              for(var j=0;j<len;j++){
+                if(matriz_pos[i][j]==1){
+                  mat_h[i][j]=llega[j]-partida[i]-matriz[i][j];
+                }
+              }
+            }
+            return {i:partida,l:llega,h:mat_h};
+          }
+
+          function redibujar(id_dia,nodos_dia,nodos_posix,nodos_posiy,partida,llega,matriz,matriz_h,matriz_p){
+            destroy();
+            var len=id_dia.length;
+            var array_nodos=[];
+            for(var i=0;i<len;i++){
+              array_nodos.push({id: i, label: nodos_dia[i]+"\n"+partida[i]+"|"+llega[i], shape: 'box', color:'#97C2FC',x:nodos_posix[i],y:nodos_posiy[i]});
+            }
+            var nodes = new vis.DataSet(array_nodos);
+            var array_aristas=[];
+            for(var i=0;i<len;i++){
+              for(var j=0;j<len;j++){
+                if(matriz_p[i][j]==1){
+                  if(matriz_h[i][j]==0){
+                    array_aristas.push({from:i,to:j,label:"A="+matriz[i][j]+"\nH="+matriz_h[i][j],font: {align: 'top'},color:{color:'red'},arrows:'to'});
+                  }else{
+                    array_aristas.push({from:i,to:j,label:"A="+matriz[i][j]+"\nH="+matriz_h[i][j],font: {align: 'top'},color:{color:'black'},arrows:'to'});
+                  }
+                }
+              }
+            }
+            // create an array with edges
+            var edges = new vis.DataSet(array_aristas);
+             /* {from: 1, to: 8, color:{color:'red'},arrows:'to'},
+              {from: 1, to: 3, color:'rgb(20,24,200)'},
+              {from: 1, to: 2, color:{color:'rgba(30,30,30,0.2)', highlight:'blue'}},
+              {from: 2, to: 4, color:{inherit:'to'}},
+              {from: 2, to: 5, color:{inherit:'from'}},
+              {from: 5, to: 6, color:{inherit:'both'}},
+              {from: 6, to: 7, color:{color:'#ff0000', opacity:0.3}},
+              {from: 6, to: 8, color:{opacity:0.3}},
+            ]);*/
+
+            // create a network
+            var container = document.getElementById('mynetwork');
+            var data = {
+              nodes: nodes,
+              edges: edges
+            };
+            var options = {
+              nodes: {
+                shape: 'circle'
+              },
+              physics:false
+            };
+            var network = new vis.Network(container, data, options);
+          }
+    </script>
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
