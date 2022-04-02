@@ -70,7 +70,8 @@
                     // filling in the popup DOM elements
                     //document.getElementById('node-operation').innerHTML = "Añadir nodo";
                     //editNode(data, callback);
-                    data.label=conta+"";
+                    let valor1 = prompt("Ingresa el nombre del nodo", "nodo" + conta);
+                    data.label = valor1;
                     callback(data);
                     conta++;
                     //console.log(data);
