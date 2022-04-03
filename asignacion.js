@@ -257,7 +257,6 @@ function MostrarMatriz () {
 
       var Filas = [];
       var Columnas = [];
-
       // Suma de filas y columnas
       for (let i = 0; i < matrix.length; i++) {
           var sumaFilas = 0;
@@ -544,7 +543,474 @@ function consegirlabel(id1){
     });
     return label;
 }
+
+const deepCopy = (arr) => {
+    let copy = [];
+    arr.forEach(elem => {
+      if(Array.isArray(elem)){
+        copy.push(deepCopy(elem))
+      }else{
+        if (typeof elem === 'object') {
+          copy.push(deepCopyObject(elem))
+      } else {
+          copy.push(elem)
+        }
+      }
+    })
+    return copy;
+  }
   
+  // Helper function to deal with Objects
+  const deepCopyObject = (obj) => {
+    let tempObj = {};
+    for (let [key, value] of Object.entries(obj)) {
+      if (Array.isArray(value)) {
+        tempObj[key] = deepCopy(value);
+      } else {
+        if (typeof value === 'object') {
+          tempObj[key] = deepCopyObject(value);
+        } else {
+          tempObj[key] = value
+        }
+      }
+    }
+    return tempObj;
+  }
+  
+ //Algoritmo de asignacion que depende de las dos funciones superiores
+ function asignacionFinal(){
+    let matcostos = [[2,2,4,7], [5,1,1,1], [4,1,2,1]];
+    let disponibilidades = [5,9,5]
+    let demandas = [2,7,7,3]
+    let maximizando = true
+
+    let copydisponibilidades = deepCopy(disponibilidades)
+    let copydemandas = deepCopy(demandas)
+
+
+    let matsol = [[0,0,0,0], [0,0,0,0], [0,0,0,0]];
+    let matbool = [[false,false,false,false], [false,false,false,false], [false,false,false,false]];
+
+
+
+    //Noroeste
+    var j=0
+    for (var i=0; i<copydisponibilidades.length;i++){
+        while(copydisponibilidades[i]>0){
+
+            if(copydisponibilidades[i]==copydemandas[j]){
+                    matsol[i][j]+=copydisponibilidades[i]
+                    matbool[i][j]=true
+                    copydisponibilidades[i]=0
+                    copydemandas[j]=0
+                    j++   
+            }
+            else if(copydisponibilidades[i]>copydemandas[j]){
+                    matsol[i][j]+=copydemandas[j]
+                    matbool[i][j]=true
+                    copydisponibilidades[i]-=copydemandas[j]
+                    copydemandas[j]=0
+                    j++
+            }
+            else if(copydisponibilidades[i]<copydemandas[j]){
+                  matsol[i][j]+=copydisponibilidades[i]
+                  matbool[i][j]=true
+                  copydemandas[j]-=copydisponibilidades[i]
+                  copydisponibilidades[i]=0
+                  
+            }
+            else{
+                  //do nothing
+            }
+
+          }
+        }
+        
+    //bis
+    let falta=true
+    do{
+
+    //copia de matriz de costos (se controla con matbool)
+
+    let copymatcostos = deepCopy(matcostos); 
+
+    let costo = 0
+    for(let i = 0; i < copymatcostos.length; i++) {
+        for(let j = 0; j < copymatcostos[0].length; j++) {
+            if(matbool[i][j]==true)
+           costo+=copymatcostos[i][j]*matsol[i][j]
+        }
+     }
+
+    //los espacios vacios de la copymatcostos se vuelven 10000
+    for(let i = 0; i < copymatcostos.length; i++) {
+      for(let j = 0; j < copymatcostos[0].length; j++) {
+          if(matbool[i][j]==false){
+                  copymatcostos[i][j]=10000
+          }
+      }
+   }
+
+     let fil=Array(copydemandas.length)
+     let col=Array(copydisponibilidades.length)
+     for(let i = 0; i < fil.length; i++) {
+       fil[i]=10000
+     }
+     for(let i = 0; i < col.length; i++) {
+      col[i]=10000
+     }
+
+    let minval = 10000
+    for(let i = 0; i < copymatcostos.length; i++) {
+        for(let j = 0; j < copymatcostos[0].length; j++) {
+            if(matbool[i][j]==true){
+                if(copymatcostos[i][j]<minval){
+                    minval=copymatcostos[i][j]
+                }
+            }
+        }
+     }
+     
+     //asignar valor minimo a primer valor columna
+     col[0]=minval
+
+     var algunVacio = true;
+     var noSeLleno = false;
+     while(algunVacio){
+          //recorrido matriz llenando matriz, fil y col
+          noSeLleno = true
+    for(let i = 0; i < fil.length; i++) {
+      for(let j = 0; j < col.length; j++) {
+          if(copymatcostos[j][i]==10000 && fil[i]!=10000 && col[j]!=10000){
+            copymatcostos[j][i]=fil[i]+col[j]
+            noSeLleno=false
+          }else if(copymatcostos[j][i]!=10000 && fil[i]==10000 && col[j]!=10000){
+            fil[i]=copymatcostos[j][i]-col[j]
+            noSeLleno=false
+          }else if(copymatcostos[j][i]!=10000 && fil[i]!=10000 && col[j]==10000){
+            col[j]=copymatcostos[j][i]-fil[i]
+            noSeLleno=false
+          }else{
+            //do nothing
+          }
+      }
+   }
+
+   //siguientes 3 recorridos para identificar espacios vacios
+       algunVacio = false
+     //recorrido fila
+      for (let i = 0; i < fil.length; i++) {
+        if(fil[i]==10000){
+          algunVacio = true
+        }
+    }
+     //recorrido columna
+     for (let i = 0; i < col.length; i++) {
+      if(col[i]==10000){
+        algunVacio = true
+      }
+    }
+    //recorrido matriz
+    for(let i = 0; i < copymatcostos.length; i++) {
+      for(let j = 0; j < copymatcostos[0].length; j++) {
+          if(copymatcostos[i][j]==10000){
+            algunVacio = true
+          }
+      }
+   }
+
+  //if se ha llenado al menos 1 espacio no se hace nada
+  //else se aniade un 1 al primer espacio vacio de la columna
+  if(noSeLleno==true && algunVacio==true){
+    let llenado = false
+    for(let i = 0; i < col.length; i++) {
+      if(col[i]==10000 && llenado==false){
+        col[i]=minval
+        llenado=true
+      }
+    }
+  }else{
+    //do nothing
+  }
+     }
+
+var matresta = deepCopy(matcostos)
+for(let i = 0; i < matresta.length; i++) {
+    for(let j = 0; j < matresta[i].length; j++) {
+                matresta[i][j]=matcostos[i][j]-copymatcostos[i][j]
+    }
+ }
+
+let mayor=0
+let menor=0
+let filmayor = -1
+let colmayor = -1
+let filmenor = -1
+let colmenor = -1
+
+for(let i = 0; i < matcostos.length; i++) {
+    for(let j = 0; j < matcostos[i].length; j++) {
+        if(matresta[i][j]<menor){
+            menor=matresta[i][j]
+            filmenor=i
+            colmenor=j
+        }else{
+            if(matresta[i][j]>mayor){
+                mayor=matresta[i][j]
+                filmayor=i
+                colmayor=j
+            }else{
+                //DOES NOTHING
+            }   
+        }         
+    }
+ }
+
+//matriz donde 0 es un espacio posible
+//1 es x
+//-1 es -x
+//3 es un espacio no posible
+  let matx = deepCopy(matcostos);
+  for (let i = 0; i < matx.length; i++) {
+    for (let j = 0; j < matx[0].length; j++) {
+      matx[i][j]=0
+    if(matbool[i][j]==true){
+      matx[i][j]=0
+    }else{
+      matx[i][j]=3
+    }
+  }
+}
+
+ if(maximizando){
+
+     if(mayor == 0){
+//finished maximizacion
+//imprimir costo maximo y matsol
+console.log("maximizado exitoso; costo = "+costo)
+     console.log(matsol)
+falta = false
+     }else{
+         matx[filmayor][colmayor]=1
+     }
+ }else{
+if(menor == 0){
+//finished minimizacion
+//imprimir costo minimo y matsol
+console.log("minimizado exitoso; costo = "+costo)
+     console.log(matsol)
+     falta = false
+     }else{
+        matx[filmenor][colmenor]=1
+     }
+ }
+
+ //equilibrado
+ let equilibrado = false
+ let flageq = false
+ let suma =0
+ let position=0
+ let value=0
+ let auxiliar=0
+ do{
+ equilibrado = true;
+ //filas
+ for (let i = 0; i < matx.length; i++) {
+   suma=0
+
+    for (let j = 0; j < matx[0].length; j++) {
+      if(matx[i][j]==1 || matx[i][j]==-1){
+        suma+=matx[i][j]
+      }else{
+        //do nothing
+      }
+    }
+          
+    position=-1
+    value=0
+    
+    for (let j = 0; j < matx[0].length; j++) {
+      auxiliar=0
+      for (let k = 0; k < matx.length; k++) {
+        if(matx[k][j]==0){
+          auxiliar++
+        }
+      }
+      if(auxiliar>value && matx[i][j]==0){
+        position=j
+      }
+    }
+
+    if(suma==1){
+      flageq=false
+        if(position!=-1){
+          matx[i][position]=-1
+          flageq=true
+          equilibrado=false
+        }else{
+          //do nothing
+        }
+
+
+    }else if(suma==-1){
+      flageq=false
+
+        if(position!=-1){
+          matx[i][position]=1
+          flageq=true
+          equilibrado=false
+        }else{
+          //do nothing
+        }
+
+    }else{
+      //do nothing
+    }
+  
+}
+
+//columnas
+for (let j = 0; j < matx[0].length; j++) {
+  suma=0
+
+   for (let i = 0; i < matx.length; i++) {
+     if(matx[i][j]==1 || matx[i][j]==-1){
+       suma+=matx[i][j]
+     }else{
+       //do nothing
+     }
+   }
+         
+   position=-1
+   value=0
+   
+   for (let i = 0; i < matx.length; i++) {
+     auxiliar=0
+     for (let k = 0; k < matx[0].length; k++) {
+       if(matx[i][k]==0){
+         auxiliar++
+       }
+     }
+     if(auxiliar>value && matx[i][j]==0){
+       position=i
+     }
+   }
+
+   if(suma==1){
+     flageq=false
+       if(position!=-1){
+         matx[position][j]=-1
+         flageq=true
+         equilibrado=false
+       }else{
+         //do nothing
+       }
+
+
+   }else if(suma==-1){
+     flageq=false
+
+       if(position!=-1){
+        matx[position][j]=1
+         flageq=true
+         equilibrado=false
+       }else{
+         //do nothing
+       }
+
+   }else{
+     //do nothing
+   }
+ 
+}
+
+ }while(equilibrado==false)
+
+
+
+//si no esta equilibrada sacar solucion
+let eqaux=0
+let noeqaux=false
+for (let i = 0; i < matx.length; i++) {
+  eqaux=0
+  for (let j = 0; j < matx[0].length; j++) {
+    if(matx[i][j]==1 || matx[i][j]==-1){
+      eqaux+=matx[i][j]
+    }
+  }
+  if(eqaux!=0){
+    noeqaux=true
+  }
+}
+for (let j = 0; j < matx[0].length; j++) {
+  eqaux=0
+  for (let i = 0; i < matx.length; i++) {
+    if(matx[i][j]==1 || matx[i][j]==-1){
+      eqaux+=matx[i][j]
+    }
+  }
+  if(eqaux!=0){
+    noeqaux=true
+  }
+}
+if(noeqaux == true){
+  if(maximizando){
+    console.log("maximizado exitoso; costo = "+costo)
+    console.log(matsol)
+    falta=false
+  }else{
+    console.log("minimizado exitoso; costo = "+costo)
+    console.log(matsol)
+    falta=false
+  }
+}else{
+  //continua
+  let valorx= 10000;
+for(var i =0;i<matx.length;i++){
+    for(var j =0;j<matx[0].length;j++){
+        if(matx[i][j]==-1){
+            if(matsol[i][j]<valorx){
+                valorx=matsol[i][j]
+            }
+        }else{
+          //do nothing
+        }
+    }
+}
+
+for(var i =0;i<matsol.length;i++){
+    for(var j =0;j<matsol[0].length;j++){
+
+        if(matx[i][j]==1){
+          if(matbool[i][j]==true){
+            matsol[i][j]+=valorx
+          }else{
+            matbool[i][j]=true
+            matsol[i][j]=valorx
+          }
+        }else if(matx[i][j]==-1){
+                matsol[i][j]-=valorx
+                //check if 0 to delete from solution
+                if(matsol[i][j]==0){
+                    matbool[i][j]=false
+                }
+        }else{
+          //do nothing   
+         }   
+
+    }
+}
+
+}
+
+
+
+//matsol es la solucion pero sale en la siguiente iteracion
+//bis
+    }while(falta==true)
+ }
+
+
 function swap (alphabets, index1, index2) {
     let temp = alphabets[index1];
     alphabets[index1] = alphabets[index2];
