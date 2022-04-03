@@ -171,7 +171,7 @@
     <!-- Custom styles for this template -->
 </head>
 
-<body onload="init();" style="background-color: #70adac ">
+<body onload="init();" style="background-color: #ffffff ">
 <header id="titulo">
   <center>
       <h1>ANALISIS DE ALGORITMOS</h1>
@@ -188,8 +188,11 @@
    <aside id="columna">
 	    <nav id="menu">
             <li><button type="button" class="btn btn-primary" id="export_button" onclick="ver()">Resultado</button></li><br>
-            <li><button type="button" class="btn btn-primary " id="export_button1" onclick="actualizar()">Nuevo</button></li>
-         </nav>
+            <li><button type="button" class="btn btn-primary " id="export_button1" onclick="actualizar()">Nuevo</button></li><br>
+            <li><button type="button" class="btn btn-primary " id="export_button2" onclick="ayuda()">Manual</button></li><br>
+            <li>        <button type="button" onclick="MostrarMatriz()" class="btn btn-success">Mostrar Matriz</button>
+            </li>
+          </nav>
    </aside>
 </header>
 <center>
@@ -239,11 +242,58 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                     <div id="mynetwork"></div>
+                    
             </div>
+            
         </div>
-    </div>
+        
+    </div><br>
+
+
+    <style type="text/css">
+      .tg  {border-collapse:collapse;border-spacing:0;}
+      .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        overflow:hidden;padding:10px 5px;word-break:normal;}
+      .tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+        font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+      .tg .tg-baqh{text-align:center;vertical-align:top}
+      .tg .tg-lmf7{background-color:#96fffb;color:#000000;font-family:"Lucida Console", Monaco, monospace !important;text-align:center;
+        vertical-align:top}
+      .tg .tg-6hok{background-color:#96fffb;font-weight:bold;text-align:center;vertical-align:top}
+      </style>
+      <table class="tg" style="undefined;table-layout: fixed; width: 515px">
+      <colgroup>
+      <col style="width: 239px">
+      <col style="width: 276px">
+      </colgroup>
+      <thead>
+        <tr>
+          <th class="tg-lmf7"><span style="font-weight:bold">REFERENCIA</span></th>
+          <th class="tg-6hok">IMAGEN</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tg-baqh">Línea crítica</td>
+          <td class="tg-baqh"><img src="lineacritica.png" alt="Image" width="200" height="100"></td>
+        </tr>
+        <tr>
+          <td class="tg-baqh">Nodos</td>
+          <td class="tg-baqh"></td>
+        </tr>
+      </tbody>
+      </table>
+
+      <table id="matrizFinal" class="table table-striped" >
+  
+      </table>
+
+
 </center>
     <script type="text/javascript">
+
+        
+
         var nodos_dia;
         var id_dia;
         function ver(){
@@ -342,6 +392,143 @@
               }
               console.log(dir);
             }
+            const generarMatriz = () => {
+    let matrix = Array(nodes.length).fill(0).map(() => Array(nodes.length).fill(0));
+  
+    edges.forEach((edge) => {
+        matrix[parseInt(edge.from)][parseInt(edge.to)] = edge.label;
+    });
+  
+    rowList = [];
+    colList = [];
+  
+    for (let i = 0; i < matrix.length; i++) {
+        sumRow = 0;
+        sumCol = 0;
+        for (let j = 0; j < matrix.length; j++) {
+            sumRow += parseFloat(matrix[i][j]);
+            sumCol += parseFloat(matrix[j][i]);
+        }
+        rowList.push(sumRow);
+        colList.push(sumCol);
+    }
+    nombresNodos = [];
+  
+    let showMatrix = " ,";
+    nodes.forEach((node) => {
+        showMatrix += node.label + ",";
+        nombresNodos.push(node.label);
+    });
+  
+    showMatrix += "SUMA|";
+  
+    for (let i = 0; i < matrix.length; i++) {
+        showMatrix += nombresNodos[i] + ",";
+        for (let j = 0; j < matrix.length; j++) {
+            showMatrix += matrix[i][j] + ",";
+        }
+  
+      showMatrix += rowList[i] + "|";
+    }
+  
+    showMatrix += "SUMA,";
+    colList.forEach((col) => (showMatrix += col + ","));
+    
+    console.log("ShowMatrix ", showMatrix)
+    //parseArray(showMatrix);
+};
+const crearTabla = (datos) => {
+    document.getElementById("matrizFinal").innerHTML = "";
+    var tabla = document.getElementById("matrizFinal");
+  
+    var cuerpo = createCustomElement("tbody");
+  
+    tabla.innerHTML = "";
+  
+    datos.forEach(function (datosFilas) {
+        var fila = createCustomElement("tr");
+        datosFilas.forEach(function (data) {
+            var celda = createCustomElement("th");
+    
+            celda.appendChild(document.createTextNode(data));
+            fila.appendChild(celda);
+        });
+  
+        cuerpoTabla.appendChild(fila);
+    });
+  
+    tabla.appendChild(cuerpo);
+};
+function MostrarMatriz () {
+    var arrayNodos = [];
+    var arrayEnlaces = [];
+    let aux = 0;
+
+    if (edges.length !== null) {
+        while (aux < edges.length) {
+          const nodes = edges.get(aux).from.toString() + "-" + edges.get(aux).to.toString(); //Obtiene el id del nodo origen y destino
+          const values = edges.get(aux).label; //Obtiene el valor entre dos nodos
+          console.log("Nodos");
+          console.log(nodes);
+          console.log("Valores");
+          console.log(values);
+          arrayNodos.push(nodes);
+          arrayEnlaces.push(values);
+          aux++;
+        }
+
+      aux = 0;
+      var matrix = Array(nodes.length).fill(0).map(() => Array(nodes.length).fill(0)); //Construccion bruta de la matriz
+      while (aux < arrayNodos.length) {
+        var split = arrayNodos[aux].split("-");
+        matrix[parseInt(split[1])][parseInt(split[0])] = arrayEnlaces[aux];
+        aux++;        
+      }
+
+      var Filas = [];
+      var Columnas = [];
+      // Suma de filas y columnas
+      for (let i = 0; i < matrix.length; i++) {
+          var sumaFilas = 0;
+          var sumaColumnas = 0;
+          for (let j = 0; j < matrix.length; j++) {
+              sumaFilas += parseFloat(matrix[i][j]);
+              sumaColumnas += parseFloat(matrix[j][i]);
+          }
+          Filas.push(sumaColumnas);
+          Columnas.push(sumaFilas);
+      }
+
+      var matriz = ",";
+      aux = 0;
+      while (aux < nodes.length) {
+        matriz += nodes.get(aux).label + ",";
+        aux++;
+      }
+      matriz += "|";
+
+    // Construir la matriz e insertar resultantes de la sumatoria
+      
+      for (let i = 0; i < matrix.length; i++) {
+        matriz += nodes.get(i).label + ",";
+        for (let j = 0; j < matrix.length; j++) {
+          matriz += matrix[j][i] + ",";
+          
+        }
+        matriz += Filas[i] + "|";
+      }
+
+      aux = 0;
+      matriz += ",";
+      while (aux < Columnas.length) {
+        matriz += Columnas[aux] + ",";
+        aux++;
+        
+      }
+    }
+    console.log(matriz);
+    toMatrix(matriz);
+}
             function ubicar_nodo(id){
                 return network.body.data.nodes._data[id].label;
             }
@@ -548,6 +735,11 @@
             };
             var network = new vis.Network(container, data, options);
           }
+
+      function abrir() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+        }
     </script>
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
