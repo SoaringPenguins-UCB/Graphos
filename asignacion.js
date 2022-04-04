@@ -473,7 +473,7 @@ function asignacion(task){
                     solution = permutations[i];
                 }
             }
-            alert("El costo maximo es = ",resultCost,"\n");
+            //alert("El costo maximo es = ",resultCost,"\n");
         }
         if(task == "min"){
 
@@ -490,7 +490,7 @@ function asignacion(task){
                     solution = permutations[i];
                 }
             }
-            response.message = response.message.concat("El costo minimo es = ",resultCost," <br> \n");
+            //response.message = response.message.concat("El costo minimo es = ",resultCost," <br> \n");
         }
         for(let i=0;i<info.sources.length;i++){
             a=consegirlabel(info.sources[i]);
@@ -537,9 +537,9 @@ function asignacion(task){
     //genera_tabla(ff);
     
     if(task == "min"){
-      asignacionFinal(ff,false);
+      asignacionFinal(ff,false,response);
     }else{
-      asignacionFinal(ff,true);
+      asignacionFinal(ff,true,response);
     }
     //asignacionFinal(ff,false);
     alert(response.message);
@@ -591,7 +591,7 @@ const deepCopy = (arr) => {
   }
   
  //Algoritmo de asignacion que depende de las dos funciones superiores
- function asignacionFinal(matcostos, maximizando){
+ function asignacionFinal(matcostos, maximizando,response){
     //let matcostos = [[2,2,4,7], [5,1,1,1], [4,1,2,1]];
     let disponibilidades = [5,9,5]
     let demandas = [2,7,7,3]
@@ -800,6 +800,7 @@ for(let i = 0; i < matcostos.length; i++) {
 //finished maximizacion
 //imprimir costo maximo y matsol
 console.log("maximizado exitoso; costo = "+costo)
+response.message = response.message.concat("maximizado exitoso \n costo = ",costo,"");
      console.log(matsol)
 falta = false
      }else{
@@ -810,6 +811,7 @@ if(menor == 0){
 //finished minimizacion
 //imprimir costo minimo y matsol
 console.log("minimizado exitoso; costo = "+costo)
+response.message = response.message.concat("minimizado exitoso \n costo = ",costo,"");
      console.log(matsol)
      falta = false
      }else{
@@ -968,10 +970,12 @@ for (let j = 0; j < matx[0].length; j++) {
 if(noeqaux == true){
   if(maximizando){
     console.log("maximizado exitoso; costo = "+costo)
+    response.message = response.message.concat("maximizado exitoso \n costo = ",costo,"");
     console.log(matsol)
     falta=false
   }else{
     console.log("minimizado exitoso; costo = "+costo)
+    response.message = response.message.concat("minimizado exitoso \n costo = ",costo,"");
     console.log(matsol)
     falta=false
   }
