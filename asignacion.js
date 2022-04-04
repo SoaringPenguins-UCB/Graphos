@@ -460,6 +460,7 @@ function asignacion(task){
         let solution;
         permute(info.destinies,0,info.destinies.length-1);
         if(task == "max"){
+          
             document.getElementById("matrizFinal").innerHTML = "";
             resultCost = -1000000;
             for(let i=0;i<permutations.length;i++){
@@ -475,6 +476,8 @@ function asignacion(task){
             alert("El costo maximo es = ",resultCost,"\n");
         }
         if(task == "min"){
+
+          
             document.getElementById("matrizFinal").innerHTML = "";
             resultCost = 1000000;
             for(let i=0;i<permutations.length;i++){
@@ -493,9 +496,9 @@ function asignacion(task){
             a=consegirlabel(info.sources[i]);
             b=consegirlabel(solution[i]);
             edges.forEach((edge) => {
-                if(parseInt(edge.from)==info.sources[i]&&parseInt(edge.to)==solution[i]){
-                    matrixad[parseInt(edge.from)][parseInt(edge.to)] = "("+parseInt(edge.label)+")";
-                }              
+               // if(parseInt(edge.from)==info.sources[i]&&parseInt(edge.to)==solution[i]){
+                 //   matrixad[parseInt(edge.from)][parseInt(edge.to)] = "("+parseInt(edge.label)+")";
+                //}              
             });
             let object1 = {
                   type: "node",
@@ -521,14 +524,24 @@ function asignacion(task){
     }
 
     var gg = matrixad.slice(0, matrixad.length/2)
-
+    console.log("tipo de gg", typeof(gg))
     console.log("gg", gg)
     var ff = gg.map(f=>{
         return f.slice(f.length/2);
     })
+
+    console.log(gg)
     
     console.log("Matriz Cortada: ", ff)
-    genera_tabla(ff);
+    
+    //genera_tabla(ff);
+    
+    if(task == "min"){
+      asignacionFinal(ff,false);
+    }else{
+      asignacionFinal(ff,true);
+    }
+    //asignacionFinal(ff,false);
     alert(response.message);
     return response;
 }
@@ -578,11 +591,10 @@ const deepCopy = (arr) => {
   }
   
  //Algoritmo de asignacion que depende de las dos funciones superiores
- function asignacionFinal(){
-    let matcostos = [[2,2,4,7], [5,1,1,1], [4,1,2,1]];
+ function asignacionFinal(matcostos, maximizando){
+    //let matcostos = [[2,2,4,7], [5,1,1,1], [4,1,2,1]];
     let disponibilidades = [5,9,5]
     let demandas = [2,7,7,3]
-    let maximizando = true
 
     let copydisponibilidades = deepCopy(disponibilidades)
     let copydemandas = deepCopy(demandas)
