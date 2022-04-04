@@ -535,7 +535,29 @@ function asignacion(task){
     console.log("Matriz Cortada: ", ff)
     
     //genera_tabla(ff);
-    
+ 
+    //edit comienzo
+    // Add new custom Node.
+
+   /* function addNode(nodeData, callback) {
+
+  if (nodes.length === 0) {
+    nodeIdCounter = 0;
+  }
+  // Verify if it's Empty.
+  var label;
+  while (!valueIsEmpty(label)) {
+    label = prompt("Ingresar el nombre del nodo:");
+  }
+  
+
+  nodeData.id = nodeIdCounter++;
+  nodeData.label = label;
+  nodeData.title = "Node " + label;
+  callback(nodeData);
+}*/
+    //edit fin
+
     if(task == "min"){
       asignacionFinal(ff,false,response);
     }else{
@@ -593,8 +615,29 @@ const deepCopy = (arr) => {
  //Algoritmo de asignacion que depende de las dos funciones superiores
  function asignacionFinal(matcostos, maximizando,response){
     //let matcostos = [[2,2,4,7], [5,1,1,1], [4,1,2,1]];
-    let disponibilidades = [5,9,5]
-    let demandas = [2,7,7,3]
+    let disponibilidades=Array(matcostos.length)
+    let demandas=Array(matcostos[0].length)
+    let labelInput = null;
+    for(let i =0;i<disponibilidades.length;i++){
+      labelInput = null
+      while (!valueIsEmpty(labelInput) || labelInput==null) {
+        labelInput = prompt("Ingresa la disponibilidad "+(i+1));
+      }
+      disponibilidades[i]=labelInput
+    }
+    for(let j =0;j<demandas.length;j++){
+      labelInput = null
+      while (!valueIsEmpty(labelInput) || labelInput==null) {
+        labelInput = prompt("Ingresa la demanda "+(j+1));
+      }
+      demandas[j]=labelInput
+    }
+    
+    
+    //console.log("disponib"+disponibilidades.length)
+    //console.log("demandas"+demandas.length)
+    //disponibilidades = [5,9,5]
+    //demandas = [2,7,7,3]
 
     let copydisponibilidades = deepCopy(disponibilidades)
     let copydemandas = deepCopy(demandas)
