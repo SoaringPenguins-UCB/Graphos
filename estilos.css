@@ -1,6 +1,7 @@
 body, select
 {
     font: 10pt sans;
+    background-image: url("penguins.jpg");
 }
 #mynetwork 
 {
