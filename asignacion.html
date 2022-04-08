@@ -21,12 +21,25 @@
         #cuerpo{
         background-color: #296dff;
         }
+        button{
+          width: 250px;
+	border-radius: 35px;
+	background: #F0F0F0;
+	list-style: none;
+	padding: 10px;
+
+	font: bold 18px verdana, Times New Roman;
+	font-size: 100%;
+    color: #000000;
+	box-shadow: #000000 5px 5px 10px;
+    text-decoration: none;
+}
         body{
   padding-top:15px;
   font-family: 'Open Sans', sans-serif;
 	font-size:13px;
 }
-.box {
+box {
   border: 5px solid rgb(51, 66, 153);
   background-color: lightgray;
   width: 1310px;
@@ -76,22 +89,20 @@
         <h2 id="nada"></h2> 
       <div class="d-grid gap-2">
        
-        <button onclick="asignacion('max')" class="botones">Max</button>
-        <button onclick="asignacion('min')" class="botones">Min</button>
+        <button onclick="asignacion('max')" class="botones">Maximizar</button>
+        <button onclick="asignacion('min')" class="botones">Minimizar</button>
       </button>
         <h2 id="Matrizsol"></h2>
         
       </div>
     </center>
   <center>
-      <div class="d-grid gap-2">
-        
+  <!--    <div class="d-grid gap-2" width=100px>-->
         <button type="button" onclick="descarga()" class="btn btn-success">Guardar</button>
   <!--       <button type="button" onclick="mostrarMatrizsol()" class="btn btn-success">Mostrar Matriz</button>-->
         <button type="button" onclick="location.href='muAsignacion.html'" class="btn btn-success">Manual de Usuario</button>
-  
-        
-      </div>
+
+     <!-- </div>-->
     </center>
       
   <!-- <label for="exampleFormControlFile1">Example file input</label>
