@@ -1267,13 +1267,14 @@ function Arraydenodos() {
   var data1 = {
     node: array1,
     edge: array2,
+    
 
   };
-
+  console.log(data1);
   return (data1);
 }
 
-function descarga() {
+function descarga2() {
   filename = prompt("Ingrese el nombre del archivo: ");
 
   let file = new Blob([JSON.stringify(Arraydenodos())], { type: "aplication/.json" });

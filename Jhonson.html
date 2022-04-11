@@ -206,6 +206,7 @@
         <li><a href="inicio.html">GRAFOS</a></li><br><br>
 
         <li><a href="jhonson.html">JHONSON</a></li><br><br>
+        <li><a href="asignacion.html">ASIGNACION</a></li><br><br>
 
       </nav>
     </aside>
@@ -366,18 +367,30 @@
 
 
   </center>
+  <center>
+    <!--    <div class="d-grid gap-2" width=100px>-->
+          <button type="button" onclick="descarga()" class="btn btn-success">Guardar</button>
+    <!--       <button type="button" onclick="mostrarMatrizsol()" class="btn btn-success">Mostrar Matriz</button>-->
+  
+       <!-- </div>-->
+       <div>
+        <input class="form-control form-control-lg" id="import" type="file">
+      </div>
+      </center>
+      <script src="asignacion.js"></script>
   <script type="text/javascript">
-
-
 
       var nodos_dia;
       var id_dia;
+
+      var nodos
+        var aristas
       function ver() {
         //var ele=network.body.data.nodes._data;
         var mostrar = "\t\t\t";
         //onsole.log(network.body);
-        var nodos = network.body.data.nodes.length;
-        var aristas = network.body.data.edges.length;
+        nodos = network.body.data.nodes.length;
+        aristas = network.body.data.edges.length;
         var id_nod = "";
         var temp_nodo = "";
         var id_arit = "";
@@ -835,6 +848,76 @@
         var popup = document.getElementById("myPopup");
         popup.classList.toggle("show");
       }
+
+function descarga() {
+  console.log("inicio mierda")      
+  console.log(nodos)
+console.log(aristas)
+console.log("fin mierda")
+  filename = prompt("Ingrese el nombre del archivo: ");
+
+  let file = new Blob([JSON.stringify(Arraydenodos())], { type: "aplication/.json" });
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(file);
+  a.download = filename + '.json';
+  a.click();
+  
+}
+//Guardar archivo
+function Arraydenodos() {
+  var array1 = [];
+  var array2 = [];
+  array1 = nodos_dia;
+  array2 = aristas;
+  const s = nodes.forEach((nodos) => {
+    console.log(nodos)
+    array1.push({ id: nodo.id, label: nodo.label });
+  });
+  const n = edges.forEach((aristas) => {
+    array2.push({ from: linea.from, to: linea.to, id: linea.id, label: linea.label });
+  });
+  var data1 = {
+    node: array1,
+    edge: array2,
+
+  };
+  console.log(data1);
+  return (data1);
+}
+
+document.getElementById('import').addEventListener('change', leerArchivo, false);
+
+
+function leerArchivo(e) {
+  var archivo = e.target.files[0];
+  if (!archivo) {
+    return;
+  }
+  var lector = new FileReader();
+  lector.onload = function (e) {
+    var contenido = e.target.result;
+    gf = JSON.parse(contenido);
+    cargar(gf["node"], gf["edge"]);
+  }
+  lector.readAsText(archivo);
+}
+
+
+function cargar(dn, de) {
+
+  nodeIdCounter == dn[dn.length - 1]["id"];
+  nodeIdCounter++;
+  nodes = new vis.DataSet(dn);
+  edges = new vis.DataSet(de);
+  edgesIdCounter = de[de.length - 1]["id"];
+  edgesIdCounter++;
+  data = {
+    nodes: nodes,
+    edges: edges,
+  };
+  network2 = new vis.Network(container, data, options);
+}
+
   </script>
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
