@@ -10,6 +10,7 @@ var nodes = new vis.DataSet([]);
 
 // Default array with edges.
 var edges = new vis.DataSet([]);
+const names_nodo = [];
 
 // Savew Data.
 var data = {
@@ -66,14 +67,37 @@ function addNode(nodeData, callback) {
   }
   // Verify if it's Empty.
   var label;
+  var nr;
+  console.log(names_nodo);
   while (!valueIsEmpty(label)) {
     label = prompt("Ingresar el nombre del nodo:");
+    console.log("wsadas")
+    if (names_nodo.length!=0){
+      console.log("banif")
+      for(var i=0; i<names_nodo.length; i++ ){
+        console.log(names_nodo[i])
+        if(label==names_nodo[i]){
+          label="";
+          nr=1;
+          alert("El nombre del nodo ya esta en uso, por favor ingresa otro nombre");
+        }
+      }
+      if(nr!=1){
+        names_nodo.push(label);
+      }
+    }else{
+      console.log("banelse")
+      if(names_nodo.length==0 || nr != 1){
+        names_nodo.push(label);
+      }
+    }
   }
 
 
   nodeData.id = nodeIdCounter++;
   nodeData.label = label;
   nodeData.title = "Node " + label;
+
   callback(nodeData);
 }
 // Add new custom Node.
@@ -1072,16 +1096,16 @@ function asignacionFinal(matcostos, maximizando, response) {
     //bis
   } while (falta == true)
 }
-function mostrarMatrizsol(matrizsol){
+function mostrarMatrizsol(matrizsol) {
   let mosmatriz = "Matriz Solucion: <br>";
-  
+
   let la = matrizsol.length;
-  for (var i=0; i<la; i++){
+  for (var i = 0; i < la; i++) {
     let las = matrizsol[i].length;
-    for (var j=0; j<las; j++){
+    for (var j = 0; j < las; j++) {
       mosmatriz = mosmatriz + matrizsol[i][j] + " | ";
     }
-    mosmatriz = mosmatriz +"<br>";
+    mosmatriz = mosmatriz + "<br>";
   }
   document.getElementById("Matrizsol").innerHTML = mosmatriz;
 }
