@@ -220,8 +220,8 @@ function selec(){
           let end = new Date().getTime()
           console.timeEnd('Time:');
         
-          alert(end - start+" ms");
-      document.getElementById("res2").value = cad;
+        //  alert(end - start+" ms");
+     // document.getElementById("res2").value = cad;
  
 }
 function selectionSort(inputArr) { 
@@ -296,8 +296,8 @@ function isort(){
           let end = new Date().getTime()
           console.timeEnd('Time:');
         
-          alert(end - start+" ms");
-      document.getElementById("res2").value = cad;
+       //   alert(end - start+" ms");
+     // document.getElementById("res2").value = cad;
   
   
 
@@ -366,8 +366,8 @@ function qsort(){
           let end = new Date().getTime()
           console.timeEnd('Time:');
         
-          alert(end - start+" ms");
-      document.getElementById("res2").value = cad;
+        //  alert(end - start+" ms");
+    //  document.getElementById("res2").value = cad;
   
 
 }
@@ -464,8 +464,8 @@ function msort(){
           let end = new Date().getTime()
           console.timeEnd('Time:');
         
-          alert(end - start+" ms");
-      document.getElementById("res2").value = cad;
+       //   alert(end - start+" ms");
+    //  document.getElementById("res2").value = cad;
   
 }
 
@@ -556,5 +556,54 @@ function merge(leftArr, rightArr) {
        }
        lector.readAsText(archivo);
     }
+
+    
+function shell_sort(arr) {
+	let n = arr.length;
+
+	for (let gap = Math.floor(n/2); gap > 0; gap = Math.floor(gap/2))	{
+		for (let i = gap; i < n; i += 1)  {
+			let temp = arr[i];
+			
+			let j;
+			for (j = i; j >= gap && arr[j-gap] > temp; j-=gap)  {
+				arr[j] = arr[j-gap];
+			}
+
+			arr[j] = temp;
+		}
+	}
+
+	return arr;
+
+}
+
+//////
+function shellSort() {
+  document.getElementById("res").value = " ";
+  var sep = envio();
+  let start = new Date().getTime()
+  console.time('Time:');
+  
+      var arr = shell_sort(sep);
+      cad = "";
+      for (var i =0;i<arr.length; i++){
+          if(i==0){
+              cad+=arr[i].toString();
+          }
+          else{
+              cad+=", "+arr[i].toString();
+          }
+  
+      }
+      
+          let end = new Date().getTime()
+          console.timeEnd('Time:');
+        
+        //  alert(end - start+" ms");
+          document.getElementById("res").value = cad;
+     // document.getElementById("res2").value = cad;
+      }
+  //////
       
     document.getElementById('import').addEventListener('change', leerArchivo, false);
