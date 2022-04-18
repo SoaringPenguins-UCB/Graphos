@@ -1268,7 +1268,6 @@ function Arraydenodos() {
     node: array1,
     edge: array2,
     
-
   };
   console.log(data1);
   return (data1);
