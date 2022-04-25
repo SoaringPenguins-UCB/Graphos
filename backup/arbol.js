@@ -15,8 +15,8 @@ function makeNode(x, y, data) {
 }
 
 function createText(x, y, data) {
-    ctx.fillStyle = "black";
-    ctx.fillText(data, x - 8, y + 7);
+    ctx.fillStyle = "red";
+    ctx.fillText(data, x - 12, y + 8);
 }
 
 function joinNode(x, y, toX, toY) {
@@ -67,7 +67,7 @@ class BST {
     }
 
     insert(value) {
-        this.root = this.insertHelper(value, this.root, null, 200, 300, 30);
+        this.root = this.insertHelper(value, this.root, null, 500, 300, 30);
     }
 
     pre(){

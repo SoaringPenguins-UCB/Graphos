@@ -56,7 +56,7 @@ box {
 
       <center>
       <h2>ANÁLISIS DE ALGORITMOS</h2>
-      <h1>ALGORITMO DE ASIGNACIÓN</h1>
+      <h1>ALGORITMO DE JOHNSON</h1>
       <h2>SOARING PENGUINS</h2>
     </center>
     <aside id="columna2">
@@ -98,8 +98,7 @@ box {
         <h2 id="nada"></h2> 
       <div class="d-grid gap-2">
        
-        <button onclick="asignacion('max')" class="botones">Maximizar</button>
-        <button onclick="asignacion('min')" class="botones">Minimizar</button>
+        <button onclick="johnson()" class="botones">Resolver</button>
       </button>
         <h2 id="Matrizsol"></h2>
         
@@ -109,7 +108,7 @@ box {
   <!--    <div class="d-grid gap-2" width=100px>-->
         <button type="button" onclick="descarga2()" class="btn btn-success">Guardar</button>
   <!--       <button type="button" onclick="mostrarMatrizsol()" class="btn btn-success">Mostrar Matriz</button>-->
-        <button type="button" onclick="location.href='muAsignacion.html'" class="btn btn-success">Manual de Usuario</button>
+        <button type="button" onclick="location.href='muJohnson.html'" class="btn btn-success">Manual de Usuario</button>
 
      <!-- </div>-->
     </center>
@@ -121,6 +120,24 @@ box {
   <div>
     <input class="form-control form-control-lg" id="import" type="file">
   </div>
+
+  <tbody>
+    <tr>
+      <td class="tg-baqh">Línea crítica</td>
+      <td class="tg-baqh"><img
+          src="https://w7.pngwing.com/pngs/667/465/png-transparent-red-line-arrow-arrow-gules-line.png" alt="Image"
+          width="200" height="100"></td>
+    </tr>
+    <tr>
+      <td class="tg-baqh">Nodos</td>
+      <td class="tg-baqh">
+        Nodo
+        <h3 id="vernodos"></h3>
+
+
+      </td>
+    </tr>
+  </tbody>
 </center>
   <br>
   
@@ -145,6 +162,6 @@ box {
   
       <br>
   
-      <script src="asignacion.js"></script>
+      <script src="jhonson.js"></script>
     </body>
   </html>

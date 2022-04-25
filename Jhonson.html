@@ -342,7 +342,7 @@
           <th class="tg-6hok">IMAGEN</th>
         </tr>
       </thead>
-      <tbody>
+
         <tr>
           <td class="tg-baqh">Línea crítica</td>
           <td class="tg-baqh"><img
@@ -358,7 +358,7 @@
 
           </td>
         </tr>
-      </tbody>
+
     </table>
 
     <table id="matrizFinal" class="table table-striped">
@@ -377,14 +377,23 @@
         <input class="form-control form-control-lg" id="import" type="file">
       </div>
       </center>
-      <script src="asignacion.js"></script>
   <script type="text/javascript">
+
+
+// Nodes and Edges counter.
+var nodeIdCounter = 0;
+var edgesIdCounter = 0;
+// Create the network.
+var container = document.getElementById("mynetwork");
+
 
       var nodos_dia;
       var id_dia;
 
       var nodos
         var aristas
+
+        
       function ver() {
         //var ele=network.body.data.nodes._data;
         var mostrar = "\t\t\t";
