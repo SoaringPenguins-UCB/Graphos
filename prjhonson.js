@@ -564,6 +564,7 @@ function asignacion(task) {
   // Add new custom Node.
 
   /* function addNode(nodeData, callback) {
+
  if (nodes.length === 0) {
    nodeIdCounter = 0;
  }
@@ -573,6 +574,7 @@ function asignacion(task) {
    label = prompt("Ingresar el nombre del nodo:");
  }
  
+
  nodeData.id = nodeIdCounter++;
  nodeData.label = label;
  nodeData.title = "Node " + label;
@@ -1265,13 +1267,13 @@ function Arraydenodos() {
   var data1 = {
     node: array1,
     edge: array2,
-
+    
   };
-
+  console.log(data1);
   return (data1);
 }
 
-function descarga() {
+function descarga2() {
   filename = prompt("Ingrese el nombre del archivo: ");
 
   let file = new Blob([JSON.stringify(Arraydenodos())], { type: "aplication/.json" });

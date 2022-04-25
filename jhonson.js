@@ -1,6 +1,6 @@
 
-      var nodos_dia;
-      var id_dia;
+      var nodos_mostrar=[];
+      var id_dia=[];
 
       // Default array with nodes.
       var nodes = new vis.DataSet([]);
@@ -16,7 +16,7 @@ var data = {
   nodes: nodes,
   edges: edges,
 };
-
+//asdasdasasd
         function ver() {
         //var ele=network.body.data.nodes._data;
         var mostrar = "\t\t\t";
@@ -511,6 +511,8 @@ function descarga() {
     
   }
 //Recuperar
+var network2 = null;
+
 function cargar(dn, de) {
 
   nodeIdCounter == dn[dn.length - 1]["id"];
