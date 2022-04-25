@@ -125,6 +125,18 @@
         // console.log(data);
         network = new vis.Network(container, data, options);
 
+        const añadirNodo = (nodeData, callback) => {
+    if (nodes.length === 0) {
+        nodeIdCounter = 0;
+    }
+    var label = prompt("Nombre del nodo:");
+    
+    nodeData.id = nodeIdCounter++;
+    nodeData.label = label;
+    nodeData.title = "Nodo " + label;
+    callback(nodeData);
+}
+
       }
 
       function editNode(data, callback) {
@@ -404,7 +416,7 @@ var container = document.getElementById("mynetwork");
         var temp_nodo = "";
         var id_arit = "";
         var temp_arit = "";
-        //console.log("Nodos: "+nodos+" Aristas: "+aristas);
+        console.log("Nodos abc: "+nodos+" Aristas abc: "+aristas);
 
         //
         //En esta parte obtengo los  los nodos
@@ -423,6 +435,12 @@ var container = document.getElementById("mynetwork");
           nodos_posix.push(temp_nodo.x);
           nodos_posiy.push(temp_nodo.y);
         }
+
+
+
+
+
+
         var aristas_a = [];
         var aristas_a2 = [];
         for (var i = 0; i < aristas; i++) {
@@ -446,6 +464,18 @@ var container = document.getElementById("mynetwork");
         var inicio = def_ini(nueva_matriz.mat2, nodos);
         var fin = def_fin(nueva_matriz.mat2, nodos);
         var parti = new array_inicio(nueva_matriz.mat1, nueva_matriz.mat2, inicio, fin, nodos);
+        console.log('nueva matriz mat 1');
+        console.log(nueva_matriz.mat1);
+        console.log('nueva matriz mat 2');
+        console.log(nueva_matriz.mat2);
+        console.log('nodos posiy');
+        console.log(nodos_posiy);
+        console.log('nodos posix');
+        console.log(nodos_posix);
+        console.log('nodos_dia');
+        console.log(nodos_dia);
+        console.log('id dia');
+        console.log(id_dia);
         console.log('Inicio');
         console.log(parti.i);
         console.log('Llegada');
@@ -718,6 +748,7 @@ var container = document.getElementById("mynetwork");
         }
         return fin;
       }
+      
       function array_inicio(matriz, matriz_pos, inicio, fin, len) {
         //llena la cola
         var cola = [];
