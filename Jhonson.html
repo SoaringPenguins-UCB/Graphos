@@ -14,9 +14,12 @@
     var network = null;
     // randomly create some nodes and edges
     var data = {};//getScaleFreeNetwork(25);
+    var data2 = new Array(); //contiene los nodos
+    var data3 = new Array(); //contiene las aristas
     var seed = 2;
     const names_nodo = [];
-
+    var contNodes = 0;
+    var contAristas = 0;
     function setDefaultLocale() {
       var defaultLocal = navigator.language;
       var select = document.getElementById('locale');
@@ -95,6 +98,11 @@
               }
             }
             data.label = label;
+            data.id = contNodes;
+            data2.push({"id": contNodes, "name": label})
+            console.log(data.label +"ban4")
+            console.log(data2[0]["id"] +"ban5")
+            contNodes = contNodes+1;
             callback(data);
               //console.log(data);
             },
@@ -105,13 +113,19 @@
             },*/
             addEdge: function (data, callback) {
               if (data.from == data.to) {
+                console.log(data.from + "ban99")
                 var r = confirm("Crear un bucle?");
                 if (r != true) {
                   callback(null);
                   return;
                 }
               }
+              console.log(data.from + "ban99")
+              console.log(data.to + "ban99")
               document.getElementById('edge-operation').innerHTML = "Añadir Arista";
+
+              
+//              console.log(data3[0]["from"] +"ban50")
               editEdgeWithoutDrag(data, callback);
             },
             editEdge: {
@@ -155,7 +169,9 @@
       function editEdgeWithoutDrag(data, callback) {
         // filling in the popup DOM elements
         document.getElementById('edge-label').value = data.label;
+        
         document.getElementById('edge-saveButton').onclick = saveEdgeData.bind(this, data, callback);
+        
         //document.getElementById('edge-cancelButton').onclick = cancelEdgeEdit.bind(this,callback);
         document.getElementById('edge-popUp').style.display = 'block';
       }
@@ -174,9 +190,14 @@
       function saveEdgeData(data, callback) {
         if (typeof data.to === 'object')
           data.to = data.to.id
+          console.log(data.to.id + "ban89")
         if (typeof data.from === 'object')
           data.from = data.from.id
         data.label = document.getElementById('edge-label').value;
+        console.log(data)
+        data3.push({"from": data.from, "to": data.to, "id": contAristas, "label": data.label});
+        contAristas= contAristas+1;
+        console.log(data3[0])
         clearEdgePopUp();
         callback(data);
       }
