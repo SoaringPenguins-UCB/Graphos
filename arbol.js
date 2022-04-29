@@ -1,25 +1,31 @@
 const canvas = document.getElementById('myCanvas');
 
-canvas.width = window.innerWidth - 500;
+canvas.width = window.innerWidth - 0;
 canvas.height = window.innerHeight*2;
 
 const ctx = canvas.getContext("2d");
 ctx.font = "20px Arial";
 
 function makeNode(x, y, data) {
+    x=x+300;
     ctx.beginPath();
+    
     ctx.arc(x, y, 20, 0, 2 * Math.PI);
+    console.log(x)
     ctx.fillStyle = '#FFFFFF';
     ctx.fill();
     ctx.stroke();
 }
 
 function createText(x, y, data) {
-    ctx.fillStyle = "black";
-    ctx.fillText(data, x - 8, y + 7);
+    x=x+300;
+    ctx.fillStyle = "red";
+    ctx.fillText(data, x - 12, y + 8);
 }
 
 function joinNode(x, y, toX, toY) {
+    x=x+300;
+    toX= toX+300;
     ctx.moveTo(x, y); 
     ctx.lineTo(toX, toY); 
     ctx.stroke(); 
@@ -67,7 +73,7 @@ class BST {
     }
 
     insert(value) {
-        this.root = this.insertHelper(value, this.root, null, 200, 300, 30);
+        this.root = this.insertHelper(value, this.root, null, 500, 300, 30);
     }
 
     pre(){
