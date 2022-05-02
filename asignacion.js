@@ -53,7 +53,8 @@ var options = {
         to:{
             enabled: true
         }
-    }
+    },
+    color:{color: 'black'}
 },
 };
 
@@ -229,122 +230,6 @@ const crearTabla = (datos) => {
   
     tabla.appendChild(cuerpo);
 };
-function MostrarMatriz () {
-    var arrayNodos = [];
-    var arrayEnlaces = [];
-    let aux = 0;
-
-    if (edges.length !== null) {
-        while (aux < edges.length) {
-          const nodes = edges.get(aux).from.toString() + "-" + edges.get(aux).to.toString(); //Obtiene el id del nodo origen y destino
-          const values = edges.get(aux).label; //Obtiene el valor entre dos nodos
-          console.log("Nodos");
-          console.log(nodes);
-          console.log("Valores");
-          console.log(values);
-          arrayNodos.push(nodes);
-          arrayEnlaces.push(values);
-          aux++;
-        }
-
-      aux = 0;
-      var matrix = Array(nodes.length).fill(0).map(() => Array(nodes.length).fill(0)); //Construccion bruta de la matriz
-      while (aux < arrayNodos.length) {
-        var split = arrayNodos[aux].split("-");
-        matrix[parseInt(split[1])][parseInt(split[0])] = arrayEnlaces[aux];
-        aux++;        
-      }
-
-      var Filas = [];
-      var Columnas = [];
-
-      // Suma de filas y columnas
-      for (let i = 0; i < matrix.length; i++) {
-          var sumaFilas = 0;
-          var sumaColumnas = 0;
-          for (let j = 0; j < matrix.length; j++) {
-              sumaFilas += parseFloat(matrix[i][j]);
-              sumaColumnas += parseFloat(matrix[j][i]);
-          }
-          Filas.push(sumaColumnas);
-          Columnas.push(sumaFilas);
-      }
-
-      var matriz = ",";
-      aux = 0;
-      while (aux < nodes.length) {
-        matriz += nodes.get(aux).label + ",";
-        aux++;
-      }
-      matriz += "|";
-
-    // Construir la matriz e insertar resultantes de la sumatoria
-      
-      for (let i = 0; i < matrix.length; i++) {
-        matriz += nodes.get(i).label + ",";
-        for (let j = 0; j < matrix.length; j++) {
-          matriz += matrix[j][i] + ",";
-          
-        }
-        matriz += Filas[i] + "|";
-      }
-
-      aux = 0;
-      matriz += ",";
-      while (aux < Columnas.length) {
-        matriz += Columnas[aux] + ",";
-        aux++;
-        
-      }
-    }
-    console.log(matriz);
-    toMatrix(matriz);
-}
-
-const toMatrix = (matriz) => {
-  let aux = Array(nodes.length +2).fill(0).map(() => Array(nodes.length +2).fill(0));
-
-  let filas = matriz.split("|");
-
-  for(let i=0; i<filas.length; i++){
-    let columnas = filas[i].split(",");
-    console.log(columnas);
-
-    for(let j=0; j<columnas.length; j++){
-      aux[i][j] = columnas[j];
-    }
-    aux[0][columnas.length-1] = "SUMA";
-  }
-  aux[filas.length-1][0] = "SUMA";
-  aux[0][0] = "NODOS";
-  
-
-  tablx(aux);
-}
-
-const tablx = (datos) =>{
-  var tabla = document.getElementById("matrizFinal");
-
-  var cuerpo = document.createElement("tbody");
-
-  tabla.innerText = "";
-
-  datos.forEach(function(datosFilas){
-      var fila = document.createElement("tr");
-    
-    datosFilas.forEach(function(data){
-
-      var celda = document.createElement("th");
-  
-      celda.appendChild(document.createTextNode(data));
-      fila.appendChild(celda);
-      
-    });
-    cuerpo.appendChild(fila);
-  })
-  
-  tabla.appendChild(cuerpo);
-}
 
 const createCustomElement = (element, attributes, children) => {
     let customElement = document.createElement(element);
@@ -377,6 +262,7 @@ function asignacion(task){
     
     edges.forEach((edge) => {
         matrixad[parseInt(edge.from)][parseInt(edge.to)] = parseInt(edge.label);
+        //edges.update({color:"#e80505"});
     });
     
     let colors = ["#800000","#FF0000","#FFA500","#808000","#800080","#FF00FF","#008000","#000080","#0000FF","#008080","#000000","#808080"];
@@ -409,6 +295,7 @@ function asignacion(task){
                 }
             }
             response.message = response.message.concat("El costo maximo es = ",resultCost,"\n");
+            //edges.update({color:"#FFFFFF"});
         }
         if(task == "min"){
             document.getElementById("matrizFinal").innerHTML = "";
@@ -424,6 +311,7 @@ function asignacion(task){
                 }
             }
             response.message = response.message.concat("El costo minimo es = ",resultCost,"\n");
+           // edges.update({color:"#e80505"});
         }
         for(let i=0; i<info.destinies.length; i++){
             a = consegirlabel(solution[i]);
@@ -432,6 +320,14 @@ function asignacion(task){
             edges.forEach((edge) => {
                 if(parseInt(edge.from) == solution[i] && parseInt(edge.to) == info.destinies[i]){
                     matrixad[parseInt(edge.from)][parseInt(edge.to)] = "("+parseInt(edge.label)+")";
+                    if(edge.label == parseInt(edge.label)){
+                        edges.update({id: edge.id,label: edge.label, color: "#F90C0C"});
+                    console.log(parseInt(edge.label)+"r");
+                    }
+                }
+                if(parseInt(edge.from) != solution[i] && parseInt(edge.to) == info.destinies[i]){
+                    edges.update({id: edge.id,label: edge.label, color: "black"});
+                console.log(parseInt(edge.label)+"g");
                 }
               
             });
@@ -486,17 +382,28 @@ function asignacion(task){
                 if(iterationCost < resultCost){ 
                     resultCost = iterationCost;
                     solution = permutations[i];
+                    
                 }
             }
             response.message = response.message.concat("El costo minimo es = ",resultCost," <br> \n");
+        // console.log("minimus");
+            
         }
         for(let i=0;i<info.sources.length;i++){
             a=consegirlabel(info.sources[i]);
             b=consegirlabel(solution[i]);
             edges.forEach((edge) => {
                 if(parseInt(edge.from)==info.sources[i]&&parseInt(edge.to)==solution[i]){
-                    matrixad[parseInt(edge.from)][parseInt(edge.to)] = "("+parseInt(edge.label)+")";
-                }              
+                    matrixad[parseInt(edge.from)][parseInt(edge.to)] = "("+parseInt(edge.label)+")"; 
+                    edges.update({id: edge.id,label: edge.label, color: "#4CFF04"});
+                    console.log(parseInt(edge.label)+"mmm");
+                    //console.log("parseInt(edge.label)")
+                    //console.log("Color waw");
+                }       
+               /* if(edges.label==parseInt(edge.label)) {
+                    edges.update({color:"#FF0000"});
+                    console.log("Color Rojo");
+                }      */
             });
             let object1 = {
                   type: "node",
@@ -518,10 +425,12 @@ function asignacion(task){
             response.array.push(object1);
             response.array.push(object2);
             response.array.push(object3);
+            //console.log("Colores");
         }
     }
 
     var gg = matrixad.slice(0, matrixad.length/2)
+    //edges.update({color:"#e80505"});
 
     console.log("gg", gg)
     var ff = gg.map(f=>{
