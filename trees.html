@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <title>árboles</title>
+        <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js" type="text/javascript"></script>
+        <link href="vis.css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+        <style type="text/css">
+        #grafo1{
+            width: 1310px;
+            height: 3000px;
+            border: 2px solid rgb(103, 99, 104);
+            border-radius: 35px;
+            
+            background-color:rgb(252, 252, 252);
+            
+    
+        }
+        #cuerpo{
+          background-color: #296dff;
+          background-image: url('penguins.jpg');
+        }
+        .center {margin: auto; width: 50%;}
+        </style>
+    </head>
+    <body id="cuerpo">
+        <nav>
+            <div id="titulo" style="
+            display: flex;
+            justify-content: center;
+            align-items: center;">
+              <table>
+                <tr>
+                  <td style="
+                  color: rgb(0, 0, 0);
+                  padding: 5px;
+                  float: right;
+                  border-radius: 100px;
+                ">
+                    <h1>ÁRBOLES</h1>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </nav>
+
+          <aside id="columna2">
+            <a href="Jhonson.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                      margin: 0 10px; border-radius: 100px; cursor: pointer;">JOHNSON</a>
+            <a href="asignacion.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+            margin: 0 10px; border-radius: 100px; cursor: pointer;">ASIGNACION</a>
+            <a href="noroeste.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+            margin: 0 10px; border-radius: 100px; cursor: pointer;">NOROESTE</a>
+            <a href="sort.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+            margin: 0 10px; border-radius: 100px; cursor: pointer;">SORTS</a>
+            <a href="trees.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+            margin: 0 10px; border-radius: 100px; cursor: pointer;">ARBOLES</a>
+            <a href="kramer.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+            margin: 0 10px; border-radius: 100px; cursor: pointer;">KRAMER</a>
+            <a href="compet.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+            margin: 0 10px; border-radius: 100px; cursor: pointer;">COMPET</a>
+        </aside>
+
+        <figure>
+            <figcaption class="blockquote-footer">
+            </figcaption>
+          </figure>
+        <div id="grafo1">
+            
+          <div class="input-box" >
+                                                                  
+                
+            <form action="" id="form-trees">
+              <br>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                <input type="number" class="botones" name="nodos" id="nodo" placeholder="Ingrese un numero" style="	margin: auto;
+                margin-bottom: 20px; padding: 10px 10px; font-family: Arial, Sans-serif; font-size: 18px; border-radius: 20px;">
+                </div>
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;">
+                <button type="submit" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                margin: 0 10px; border-radius: 100px; cursor: pointer;">Agregar</button>
+                </div>
+                <br>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                        <br>
+                        <button onclick="recorrido('inOrder')" id="in" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                        margin: 0 10px; border-radius: 100px; cursor: pointer;">In-order</button> 
+                            <button onclick="recorrido('preOrder')" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                            margin: 0 10px; border-radius: 100px; cursor: pointer;">Pre-order</button>                                                                        
+                            <button onclick="recorrido('postOrder')" id="post" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                            margin: 0 10px; border-radius: 100px; cursor: pointer;">Post-order</button> 
+                            <button onclick="save()" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                            margin: 0 10px; border-radius: 100px; cursor: pointer;">Guardar</button>
+                            <button onclick="location.href='mutrees.html'" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                            margin: 0 10px; border-radius: 100px; cursor: pointer;">Manual de Usuario</button>
+                            <input type="file" id="import" class="botones" style="width: 175px;">
+                            </div>
+            </form>          
+            <div class="tree center">
+              <canvas id='myCanvas' width="400" height="400">Your browser doesnot support canvas</canvas><script type="text/javascript" src="arbol.js"></script>
+
+    
+              
+        </div>
+        
+    
+    </body>
+</html>
