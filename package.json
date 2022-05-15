@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "node-dijkstra": "^1.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.33"
+  }
+}
