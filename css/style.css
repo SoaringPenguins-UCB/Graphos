@@ -23,7 +23,7 @@ img, video, object { max-width:100%; }
 header
 {
 	background-image: url(../img/stripe.png);
-	border-bottom: .5em solid #FF8000;
+	border-bottom: .5em solid #0084ff;
 	text-align: left;
 	padding-bottom: 0.5em;
 	padding-top: 0.3em;
