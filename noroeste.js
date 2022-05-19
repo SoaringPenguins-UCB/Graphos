@@ -421,139 +421,6 @@ function asignacion(task) {
   };
  
   let matrix = correctMatrix(matrixad, info);
-//  console.log("matrix abc", matrix)
-  /*if (info.sources.length >= info.destinies.length) {
-    permute(info.sources, 0, info.sources.length - 1);
-    let resultCost;
-    let solution;
-    if (task == "max") {
-      document.getElementById("matrizFinal").innerHTML = "";
-      resultCost = -1000000;
-      for (let i = 0; i < permutations.length; i++) {
-        let iterationCost = 0;
-        for (let j = 0; j < info.destinies.length; j++) {
-          iterationCost += matrixad[permutations[i][j]][info.destinies[j]];
-        }
-        if (iterationCost > resultCost) {
-          resultCost = iterationCost;
-          solution = permutations[i];
-        }
-      }
-      response.message = response.message.concat("El costo maximo es = ", resultCost, "\n");
-    }
-    if (task == "min") {
-      document.getElementById("matrizFinal").innerHTML = "";
-      resultCost = 1000000;
-      for (let i = 0; i < permutations.length; i++) {
-        let iterationCost = 0;
-        for (let j = 0; j < info.destinies.length; j++) {
-          iterationCost += matrixad[permutations[i][j]][info.destinies[j]];
-        }
-        if (iterationCost < resultCost) {
-          resultCost = iterationCost;
-          solution = permutations[i];
-        }
-      }
-      response.message = response.message.concat("El costo minimo es = ", resultCost, "\n");
-    }
-    for (let i = 0; i < info.destinies.length; i++) {
-      a = consegirlabel(solution[i]);
-      b = consegirlabel(info.destinies[i]);
-
-      edges.forEach((edge) => {
-        if (parseInt(edge.from) == solution[i] && parseInt(edge.to) == info.destinies[i]) {
-          matrixad[parseInt(edge.from)][parseInt(edge.to)] = "(" + parseInt(edge.label) + ")";
-        }
-
-      });
-      let object1 = {
-        type: "node",
-        id: solution[i],
-        color: colors[i]
-      };
-      let object2 = {
-        type: "edge",
-        source: solution[i],
-        target: info.destinies[i],
-        color: colors[i]
-      };
-      let object3 = {
-        type: "node",
-        id: info.destinies[i],
-        color: colors[i]
-      };
-      response.array.push(object1);
-      response.array.push(object2);
-      response.array.push(object3);
-    }
-  }
-  else {
-    let resultCost;
-    let solution;
-    permute(info.destinies, 0, info.destinies.length - 1);
-    if (task == "max") {
-
-      document.getElementById("matrizFinal").innerHTML = "";
-      resultCost = -1000000;
-      for (let i = 0; i < permutations.length; i++) {
-        let iterationCost = 0;
-        for (let j = 0; j < info.sources.length; j++) {
-          iterationCost += matrixad[info.sources[j]][permutations[i][j]];
-        }
-        if (iterationCost > resultCost) {
-          resultCost = iterationCost;
-          solution = permutations[i];
-        }
-      }
-      //alert("El costo maximo es = ",resultCost,"\n");
-    }
-    if (task == "min") {
-
-
-      document.getElementById("matrizFinal").innerHTML = "";
-      resultCost = 1000000;
-      for (let i = 0; i < permutations.length; i++) {
-        let iterationCost = 0;
-        for (let j = 0; j < info.sources.length; j++) {
-          iterationCost += matrixad[info.sources[j]][permutations[i][j]];
-        }
-        if (iterationCost < resultCost) {
-          resultCost = iterationCost;
-          solution = permutations[i];
-        }
-      }
-      //response.message = response.message.concat("El costo minimo es = ",resultCost," <br> \n");
-    }
-    for (let i = 0; i < info.sources.length; i++) {
-      a = consegirlabel(info.sources[i]);
-      b = consegirlabel(solution[i]);
-      edges.forEach((edge) => {
-        // if(parseInt(edge.from)==info.sources[i]&&parseInt(edge.to)==solution[i]){
-        //   matrixad[parseInt(edge.from)][parseInt(edge.to)] = "("+parseInt(edge.label)+")";
-        //}              
-      });
-      let object1 = {
-        type: "node",
-        id: info.sources[i],
-        color: colors[i]
-      };
-      let object2 = {
-        type: "edge",
-        source: info.sources[i],
-        target: solution[i],
-        color: colors[i]
-      };
-
-      let object3 = {
-        type: "node",
-        id: solution[i],
-        color: colors[i]
-      };
-      response.array.push(object1);
-      response.array.push(object2);
-      response.array.push(object3);
-    }
-  }*/
 
   let gg = matrixad.slice(0, matrixad.length / 2)
  // console.log("tipo de gg", typeof (gg))
@@ -589,27 +456,18 @@ function asignacion(task) {
  callback(nodeData);
 }*/
   //edit fin
-  
-let finiquito = []
-  if (task == "min") {
-    finiquito = asignacionFinal(ff, false, response);
-    console.log("minimizando")
-  } else {
-    finiquito = asignacionFinal(ff, true, response);
-    console.log("maximizando")
-  }
-  console.log("res[pooo")
-  console.log(response)
-  console.log("arrayyyy")
-  console.log(response.array)
-
-  console.log("matrixadddddddd")
-  console.log(matrixad)
-
-  console.log("finiquito")
-  console.log(finiquito)
-
-
+  let cadena = document.getElementById('data').value;
+  let cadena2 = document.getElementById('data2').value;
+  /*var input = "";
+  if(cadena){
+      input = cadena.value;
+  }*/
+  console.log("ff.lenght");
+  console.log(ff.length);
+  console.log("ff.lenght[0]");
+  console.log(ff[0].length);
+  let demandasdice = JSON.parse("[" + cadena + "]");
+  let disponibilidadesdice = JSON.parse("[" + cadena2 + "]");
 
   let origeneses = []
   let destinoses = []
@@ -625,29 +483,81 @@ let finiquito = []
       destinoses.push(i)
     }
   }
+  console.log("origeneses")
+  console.log(origeneses)
+  console.log("destinoses")
+  console.log(destinoses)
       gf = Arraydenodos();
       cargar(gf["node"], gf["edge"]);
     console.log("gf nodosss")
     console.log(gf["node"])
     console.log("gf  edgess")
     console.log(gf["edge"])
+
+    let origenlabels = []
+    let destinolabels = []
+
+    for (let i = 0; i < gf["node"].length; i++) {
+      let flagauxiaux = false
+      for (let j = 0; j < origeneses.length; j++) {
+        if(gf["node"][i].id==origeneses[j]){
+        origenlabels.push(gf["node"][i].label)
+        flagauxiaux = true  
+        }
+    }
+
+    if(flagauxiaux == false){
+      destinolabels.push(gf["node"][i].label)
+    }
+    }
+    console.log("labels origenes")
+    console.log(origenlabels)
+    console.log("labels destinos")
+    console.log(destinolabels)
+
+  if(disponibilidadesdice.length == ff.length && demandasdice.length == ff[0].length){
+    let finiquito = []
+    if (task == "min") {
+      finiquito = asignacionFinal(ff, false, response,demandasdice,disponibilidadesdice,origenlabels,destinolabels);
+      console.log("minimizando")
+    } else {
+      finiquito = asignacionFinal(ff, true, response,demandasdice,disponibilidadesdice,origenlabels,destinolabels);
+      console.log("maximizando")
+    }
+    console.log("res[pooo")
+    console.log(response)
+    console.log("arrayyyy")
+    console.log(response.array)
+  
+    console.log("matrixadddddddd")
+    console.log(matrixad)
+  
+    console.log("finiquito")
+    console.log(finiquito)
+  
+  
+  
+      for (let i = 0; i < finiquito.length; i++) {
+        for (let j = 0; j < finiquito[0].length; j++) {
+          if(finiquito[i][j]>0){
+            edges.update({from:origeneses[i],to:destinoses[j], color: "#800000"});
+          }
+        }
+      }
     for (let i = 0; i < finiquito.length; i++) {
       for (let j = 0; j < finiquito[0].length; j++) {
         if(finiquito[i][j]>0){
-          edges.update({from:origeneses[i],to:destinoses[j], color: "#800000"});
+          edges.update({from:origeneses[i],to:destinoses[j], color: "red"});
         }
       }
     }
-  for (let i = 0; i < finiquito.length; i++) {
-    for (let j = 0; j < finiquito[0].length; j++) {
-      if(finiquito[i][j]>0){
-        edges.update({from:origeneses[i],to:destinoses[j], color: "red"});
-      }
-    }
+    
+    alert(response.message);
+    return response;
+  }else{
+    alert("verifique disponibilidades y demandas");
   }
-  
-  alert(response.message);
-  return response;
+
 }
 
 
@@ -695,31 +605,7 @@ const deepCopyObject = (obj) => {
 }
 
 //Algoritmo de asignacion que depende de las dos funciones superiores
-function asignacionFinal(matcostos, maximizando, response) {
-  //let matcostos = [[2,2,4,7], [5,1,1,1], [4,1,2,1]];
-  let disponibilidades = Array(matcostos.length)
-  let demandas = Array(matcostos[0].length)
-  let labelInput = null;
-  for (let i = 0; i < disponibilidades.length; i++) {
-    labelInput = null
-    while (!valueIsEmpty(labelInput) || labelInput == null) {
-      labelInput = prompt("Ingresa la disponibilidad " + (i + 1));
-    }
-    disponibilidades[i] = labelInput
-  }
-  for (let j = 0; j < demandas.length; j++) {
-    labelInput = null
-    while (!valueIsEmpty(labelInput) || labelInput == null) {
-      labelInput = prompt("Ingresa la demanda " + (j + 1));
-    }
-    demandas[j] = labelInput
-  }
-
-
-  //console.log("disponib"+disponibilidades.length)
-  //console.log("demandas"+demandas.length)
-  //disponibilidades = [5,9,5]
-  //demandas = [2,7,7,3]
+function asignacionFinal(matcostos, maximizando, response,demandas,disponibilidades,orig,dest) {
 
   let copydisponibilidades = deepCopy(disponibilidades)
   let copydemandas = deepCopy(demandas)
@@ -740,9 +626,6 @@ for (let i = 0; i < matsol.length; i++) {
       matbool[i][j] = false
 }
 }
-//console.log("leellllllllllllllllllllllllllll")
-//console.log(matsol)
-//console.log(matbool)
   //Noroeste
   var j = 0
   for (var i = 0; i < copydisponibilidades.length; i++) {
@@ -940,7 +823,7 @@ for (let i = 0; i < matsol.length; i++) {
         console.log("maximizado exitoso; costo = " + costo)
         response.message = response.message.concat("maximizado exitoso \n costo = ", costo, "");
         console.log(matsol)
-        mostrarMatrizsol(matsol);
+        mostrarMatrizsol(matsol,orig,dest);
         falta = false
       } else {
         matx[filmayor][colmayor] = 1
@@ -952,7 +835,7 @@ for (let i = 0; i < matsol.length; i++) {
         console.log("minimizado 2 exitoso; costo = " + costo)
         response.message = response.message.concat("minimizado exitoso \n costo = ", costo, "");
         console.log(matsol)
-        mostrarMatrizsol(matsol);
+        mostrarMatrizsol(matsol,orig,dest);
         falta = false
       } else {
         matx[filmenor][colmenor] = 1
@@ -1112,13 +995,13 @@ for (let i = 0; i < matsol.length; i++) {
         console.log("maximizado exitoso; costo = " + costo)
         response.message = response.message.concat("maximizado exitoso \n costo = ", costo, "");
         console.log(matsol)
-        mostrarMatrizsol(matsol);
+        mostrarMatrizsol(matsol,orig,dest);
         falta = false
       } else {
         console.log("minimizado exitoso; costo = " + costo)
         response.message = response.message.concat("minimizado exitoso \n costo = ", costo, "");
         console.log(matsol)
-        mostrarMatrizsol(matsol);
+        mostrarMatrizsol(matsol,orig,dest);
         falta = false
       }
     } else {
@@ -1170,12 +1053,18 @@ for (let i = 0; i < matsol.length; i++) {
   return matsol
  // edges.update({id: 1, color: "red"});
 }
-function mostrarMatrizsol(matrizsol) {
+function mostrarMatrizsol(matrizsol,orig,dest) {
   let mosmatriz = "Matriz Solucion: <br>";
+  mosmatriz = mosmatriz+ "&emsp;";
+  for (let z = 0; z < dest.length; z++) {
+    mosmatriz = mosmatriz + dest[z] + " | ";
+  }
+  mosmatriz = mosmatriz + "<br>";
 
   let la = matrizsol.length;
   for (var i = 0; i < la; i++) {
     let las = matrizsol[i].length;
+    mosmatriz = mosmatriz + orig[i] + "   ";
     for (var j = 0; j < las; j++) {
       mosmatriz = mosmatriz + matrizsol[i][j] + " | ";
     }
