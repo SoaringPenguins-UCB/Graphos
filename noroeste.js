@@ -71,7 +71,6 @@ function addNode(nodeData, callback) {
   console.log(names_nodo);
   while (!valueIsEmpty(label)) {
     label = prompt("Ingresar el nombre del nodo:");
-    console.log("wsadas")
     if (names_nodo.length!=0){
       console.log("banif")
       for(var i=0; i<names_nodo.length; i++ ){
@@ -86,7 +85,6 @@ function addNode(nodeData, callback) {
         names_nodo.push(label);
       }
     }else{
-      console.log("banelse")
       if(names_nodo.length==0 || nr != 1){
         names_nodo.push(label);
       }
@@ -207,7 +205,9 @@ const generarMatriz = () => {
       showMatrix += matrix[i][j] + ",";
     }
 
-    showMatrix += rowList[i] + "|";
+  showMatrix += rowList[i] + "|";
+
+  
   }
 
   showMatrix += "SUMA,";
@@ -309,6 +309,7 @@ function MostrarMatriz() {
         matriz += matrix[j][i] + ",";
 
       }
+      
       matriz += Filas[i] + "|";
     }
 
@@ -588,6 +589,12 @@ function asignacion(task) {
     asignacionFinal(ff, true, response);
   }
   //asignacionFinal(ff,false);
+  console.log("res[pooo")
+  console.log(response)
+  console.log("arrayyyy")
+  console.log(response.array)
+  //console.log("sollllllllllllllllutionnnnnnnnnnnnnn")
+  //console.log(solution)
   alert(response.message);
   return response;
 }
@@ -667,11 +674,24 @@ function asignacionFinal(matcostos, maximizando, response) {
   let copydemandas = deepCopy(demandas)
 
 
-  let matsol = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-  let matbool = [[false, false, false, false], [false, false, false, false], [false, false, false, false]];
+  //let matsol = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+  //let matbool = [[false, false, false, false], [false, false, false, false], [false, false, false, false]];
 
-
-
+  let matsol = new Array();
+  let matbool = new Array();
+for (let i = 0; i < copydisponibilidades.length; i++) {
+  matsol[i] = new Array(copydemandas.length);
+  matbool[i] = new Array(copydemandas.length);
+}
+for (let i = 0; i < matsol.length; i++) {
+  for (let j = 0; j < matsol[0].length; j++) {
+      matsol[i][j] = 0
+      matbool[i][j] = false
+}
+}
+console.log("leellllllllllllllllllllllllllll")
+console.log(matsol)
+console.log(matbool)
   //Noroeste
   var j = 0
   for (var i = 0; i < copydisponibilidades.length; i++) {
