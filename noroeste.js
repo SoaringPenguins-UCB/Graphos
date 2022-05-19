@@ -264,10 +264,10 @@ function MostrarMatriz() {
     while (aux < edges.length) {
       const nodes = edges.get(aux).from.toString() + "-" + edges.get(aux).to.toString(); //Obtiene el id del nodo origen y destino
       const values = edges.get(aux).label; //Obtiene el valor entre dos nodos
-      console.log("Nodos");
-      console.log(nodes);
-      console.log("Valores");
-      console.log(values);
+     // console.log("Nodos");
+      //console.log(nodes);
+     // console.log("Valores");
+     // console.log(values);
       arrayNodos.push(nodes);
       arrayEnlaces.push(values);
       aux++;
@@ -402,9 +402,13 @@ function asignacion(task) {
   let matrixad = Array(nodes.length).fill(0).map(() => Array(nodes.length).fill(0));
 
   edges.forEach((edge) => {
-    matrixad[parseInt(edge.from)][parseInt(edge.to)] = parseInt(edge.label);
+    if(!isNaN(edge.label)){
+      matrixad[parseInt(edge.from)][parseInt(edge.to)] = parseInt(edge.label);
+    }
+   
+    //console.log("de "+edge.from+" a "+edge.to+" ;label "+edge.label)
   });
-
+  
   let colors = ["#800000", "#FF0000", "#FFA500", "#808000", "#800080", "#FF00FF", "#008000", "#000080", "#0000FF", "#008080", "#000000", "#808080"];
   let response = {
     array: [],
@@ -415,9 +419,10 @@ function asignacion(task) {
     sources: [],
     destinies: []
   };
-
-  var matrix = correctMatrix(matrixad, info);
-  if (info.sources.length >= info.destinies.length) {
+ 
+  let matrix = correctMatrix(matrixad, info);
+//  console.log("matrix abc", matrix)
+  /*if (info.sources.length >= info.destinies.length) {
     permute(info.sources, 0, info.sources.length - 1);
     let resultCost;
     let solution;
@@ -548,16 +553,16 @@ function asignacion(task) {
       response.array.push(object2);
       response.array.push(object3);
     }
-  }
+  }*/
 
-  var gg = matrixad.slice(0, matrixad.length / 2)
-  console.log("tipo de gg", typeof (gg))
-  console.log("gg", gg)
-  var ff = gg.map(f => {
+  let gg = matrixad.slice(0, matrixad.length / 2)
+ // console.log("tipo de gg", typeof (gg))
+ // console.log("gg", gg)
+  let ff = gg.map(f => {
     return f.slice(f.length / 2);
   })
 
-  console.log(gg)
+  console.log("gg"+gg)
 
   console.log("Matriz Cortada: ", ff)
 
@@ -584,27 +589,23 @@ function asignacion(task) {
  callback(nodeData);
 }*/
   //edit fin
+  
 let finiquito = []
   if (task == "min") {
     finiquito = asignacionFinal(ff, false, response);
+    console.log("minimizando")
   } else {
     finiquito = asignacionFinal(ff, true, response);
+    console.log("maximizando")
   }
-  //asignacionFinal(ff,false);
   console.log("res[pooo")
   console.log(response)
   console.log("arrayyyy")
   console.log(response.array)
-  //console.log("sollllllllllllllllutionnnnnnnnnnnnnn")
 
   console.log("matrixadddddddd")
   console.log(matrixad)
 
-
-
-
-  //matrix add y ad 2 = vector que dice id y si es origen o destino
-  //
   console.log("finiquito")
   console.log(finiquito)
 
@@ -620,23 +621,23 @@ let finiquito = []
     }
     if(suma>0){
       origeneses.push(i)
-      console.log("origen")
     }else{
       destinoses.push(i)
-      console.log("destino")
     }
   }
-
- // let file = new Blob([JSON.stringify(Arraydenodos())], { type: "aplication/.json" });
       gf = Arraydenodos();
       cargar(gf["node"], gf["edge"]);
-    console.log("matrixadddddddd2")
+    console.log("gf nodosss")
     console.log(gf["node"])
-    console.log("matrixadddddddd3")
+    console.log("gf  edgess")
     console.log(gf["edge"])
-
-  //gf = JSON.parse(algo);
-  //cargar(gf["node"], gf["edge"]);
+    for (let i = 0; i < finiquito.length; i++) {
+      for (let j = 0; j < finiquito[0].length; j++) {
+        if(finiquito[i][j]>0){
+          edges.update({from:origeneses[i],to:destinoses[j], color: "#800000"});
+        }
+      }
+    }
   for (let i = 0; i < finiquito.length; i++) {
     for (let j = 0; j < finiquito[0].length; j++) {
       if(finiquito[i][j]>0){
@@ -645,9 +646,6 @@ let finiquito = []
     }
   }
   
-
-
-  //console.log(solution)
   alert(response.message);
   return response;
 }
@@ -742,9 +740,9 @@ for (let i = 0; i < matsol.length; i++) {
       matbool[i][j] = false
 }
 }
-console.log("leellllllllllllllllllllllllllll")
-console.log(matsol)
-console.log(matbool)
+//console.log("leellllllllllllllllllllllllllll")
+//console.log(matsol)
+//console.log(matbool)
   //Noroeste
   var j = 0
   for (var i = 0; i < copydisponibilidades.length; i++) {
@@ -1337,15 +1335,22 @@ function Arraydenodos() {
   const s = nodes.forEach((nodo) => {
     array1.push({ id: nodo.id, label: nodo.label });
   });
+ // console.log("tipos")
   const n = edges.forEach((linea) => {
-    array2.push({ from: linea.from, to: linea.to, id: linea.id, label: linea.label });
+    //console.log(typeof(linea.id))
+    if(!isNaN(linea.id)){
+      array2.push({ from: linea.from, to: linea.to, id: linea.id, label: linea.label });
+    }
   });
+  console.log("antes")
+  console.log(data1);
   var data1 = {
     node: array1,
     edge: array2,
     
 
   };
+  console.log("despues")
   console.log(data1);
   return (data1);
 }
@@ -1372,6 +1377,10 @@ function cargar(dn, de) {
   nodeIdCounter++;
   nodes = new vis.DataSet(dn);
   edges = new vis.DataSet(de);
+  console.log("cargar nodes")
+  console.log(nodes)
+  console.log("cargar edges")
+  console.log(edges)
   edgesIdCounter = de[de.length - 1]["id"];
   edgesIdCounter++;
   data = {
@@ -1380,9 +1389,8 @@ function cargar(dn, de) {
   };
   console.log("data")
   console.log(data)
-  //edges.update({id: 1, color: "red"});
   network2 = new vis.Network(container, data, options);
-  //edges.update({id: 1, color: "red"});
+
 }
 
 if (network2 != null) {
