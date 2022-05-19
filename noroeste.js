@@ -127,6 +127,8 @@ function addEdge(edgeData, callback) {
     label = prompt("Ingrese el valor:");
   }
 
+  //edgeData.color = "#FF0000"
+  //#800000
   if (edgeData.from === edgeData.to) {
 
     edgeData.id = edgesIdCounter++;
@@ -582,11 +584,11 @@ function asignacion(task) {
  callback(nodeData);
 }*/
   //edit fin
-
+let finiquito = []
   if (task == "min") {
-    asignacionFinal(ff, false, response);
+    finiquito = asignacionFinal(ff, false, response);
   } else {
-    asignacionFinal(ff, true, response);
+    finiquito = asignacionFinal(ff, true, response);
   }
   //asignacionFinal(ff,false);
   console.log("res[pooo")
@@ -594,6 +596,57 @@ function asignacion(task) {
   console.log("arrayyyy")
   console.log(response.array)
   //console.log("sollllllllllllllllutionnnnnnnnnnnnnn")
+
+  console.log("matrixadddddddd")
+  console.log(matrixad)
+
+
+
+
+  //matrix add y ad 2 = vector que dice id y si es origen o destino
+  //
+  console.log("finiquito")
+  console.log(finiquito)
+
+
+
+  let origeneses = []
+  let destinoses = []
+
+  for (let i = 0; i < matrixad.length; i++) {
+    let suma = 0
+    for (let j = 0; j < matrixad.length; j++) {
+      suma+=matrixad[i][j]
+    }
+    if(suma>0){
+      origeneses.push(i)
+      console.log("origen")
+    }else{
+      destinoses.push(i)
+      console.log("destino")
+    }
+  }
+
+ // let file = new Blob([JSON.stringify(Arraydenodos())], { type: "aplication/.json" });
+      gf = Arraydenodos();
+      cargar(gf["node"], gf["edge"]);
+    console.log("matrixadddddddd2")
+    console.log(gf["node"])
+    console.log("matrixadddddddd3")
+    console.log(gf["edge"])
+
+  //gf = JSON.parse(algo);
+  //cargar(gf["node"], gf["edge"]);
+  for (let i = 0; i < finiquito.length; i++) {
+    for (let j = 0; j < finiquito[0].length; j++) {
+      if(finiquito[i][j]>0){
+        edges.update({from:origeneses[i],to:destinoses[j], color: "red"});
+      }
+    }
+  }
+  
+
+
   //console.log(solution)
   alert(response.message);
   return response;
@@ -1115,6 +1168,9 @@ console.log(matbool)
     //matsol es la solucion pero sale en la siguiente iteracion
     //bis
   } while (falta == true)
+
+  return matsol
+ // edges.update({id: 1, color: "red"});
 }
 function mostrarMatrizsol(matrizsol) {
   let mosmatriz = "Matriz Solucion: <br>";
@@ -1308,6 +1364,10 @@ function descarga2() {
 var network2 = null;
 
 function cargar(dn, de) {
+  console.log("dm")
+  console.log(dn)
+  console.log("de")
+  console.log(de)
   nodeIdCounter == dn[dn.length - 1]["id"];
   nodeIdCounter++;
   nodes = new vis.DataSet(dn);
@@ -1318,7 +1378,11 @@ function cargar(dn, de) {
     nodes: nodes,
     edges: edges,
   };
+  console.log("data")
+  console.log(data)
+  //edges.update({id: 1, color: "red"});
   network2 = new vis.Network(container, data, options);
+  //edges.update({id: 1, color: "red"});
 }
 
 if (network2 != null) {
@@ -1338,6 +1402,8 @@ function leerArchivo(e) {
   }
   lector.readAsText(archivo);
 }
+
+
 
 function mostrar(contenido) {
   var gf;
