@@ -25,13 +25,16 @@ function toStr(){
 
 function ran(){
     var numero_random = parseInt( prompt("Ingrese cantidad de numeros: "));
+    while (numero_random<1){
+      numero_random = parseInt( prompt("La cantidad de numeros no puede ser menor a 0. Ingrese cantidad de numeros: "));  
+  }
     var lim = parseInt(prompt("Ingresar limite inferior: "));
     var sup  = parseInt(prompt("Ingresar limite superior: "));
-    while (lim<0 || numero_random<0 || sup<0){
-        var numero_random = parseInt( prompt("No se ingreso nada vuelva a ingresar: "));
-        var lim = parseInt(prompt("Ingrese el limite inferior: "));
-        var sup  = parseInt(prompt("Ingrese el limite superior: "));    
-    }
+
+    while (lim>sup){
+      lim = parseInt(prompt("El limite inferior no puede ser mayor al superior. Ingrese el limite inferior: "));
+      sup  = parseInt(prompt("Ingrese el limite superior: "));    
+  }
      document.getElementById("data").value = " ";
     
     var imprimir = " ";
