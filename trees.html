@@ -67,6 +67,7 @@
             <figcaption class="blockquote-footer">
             </figcaption>
           </figure>
+        <center>
         <div id="grafo1">
             
           <div class="input-box" >
@@ -74,18 +75,12 @@
                 
             <form action="" id="form-trees">
               <br>
-                <div style="display: flex;
-                justify-content: center;
-                align-items: center;">
-                <input type="number" class="botones" name="nodos" id="nodo" placeholder="Ingrese un numero" style="	margin: auto;
-                margin-bottom: 20px; padding: 10px 10px; font-family: Arial, Sans-serif; font-size: 18px; border-radius: 20px;">
-                </div>
-                <div style="display: flex;
-                justify-content: center;
-                align-items: center;">
-                <button type="submit" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
-                margin: 0 10px; border-radius: 100px; cursor: pointer;">Agregar</button>
-                </div>
+                <div style="display: flex; justify-content: center; align-items: center;">
+                <input type="number" min="0" class="botones" name="nodos" id="nodo" placeholder="Ingrese un número" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 10px 15px;	display: inline-block;
+                margin: 0 0; cursor: pointer;">
+              <button type="submit" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+              margin: 0 10px; border-radius: 100px; cursor: pointer;">Agregar</button>  
+              </div>
                 <br>
                 <div style="display: flex; justify-content: center; align-items: center;">
                         <br>
@@ -95,20 +90,26 @@
                             margin: 0 10px; border-radius: 100px; cursor: pointer;">Pre-order</button>                                                                        
                             <button onclick="recorrido('postOrder')" id="post" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
                             margin: 0 10px; border-radius: 100px; cursor: pointer;">Post-order</button> 
+                           
+                            </div>
+                            <br>
+                              
+                            <div style="display: flex; justify-content: center; align-items: center;">
+                              <button onclick="location.href='mutrees.html'" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+                              margin: 0 10px; border-radius: 100px; cursor: pointer;">Manual de Usuario</button>
                             <button onclick="save()" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
                             margin: 0 10px; border-radius: 100px; cursor: pointer;">Guardar</button>
-                            <button onclick="location.href='mutrees.html'" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
-                            margin: 0 10px; border-radius: 100px; cursor: pointer;">Manual de Usuario</button>
+                          
                             <input type="file" id="import" class="botones" style="width: 175px;">
-                            </div>
+                          </div>
             </form>          
             <div class="tree center">
-              <canvas id='myCanvas' width="400" height="400">Your browser doesnot support canvas</canvas><script type="text/javascript" src="arbol.js"></script>
+              <canvas id='myCanvas' width="200" height="400"></canvas><script type="text/javascript" src="arbol.js"></script>
 
     
               
         </div>
-        
+      </center>
     
     </body>
 </html>

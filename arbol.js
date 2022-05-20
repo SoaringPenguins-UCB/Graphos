@@ -145,10 +145,13 @@ function save(){
 }
 
 function leerArchivo(e){
+    
     var archivo= e.target.files[0];
     if(!archivo){
       return;
     }
+    tree = new BST();
+    
     var lector= new FileReader();
     lector.onload= function(e){
         var contenido= e.target.result;
