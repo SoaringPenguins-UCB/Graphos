@@ -19,6 +19,14 @@
           background-image: url('penguins.jpg');
         }
         .center {margin: auto; width: 50%;}
+        .lol {
+    width: 50em;
+    height: 50em;
+    overflow-x: auto;
+    overflow-y: auto;
+    white-space: nowrap;
+    margin: auto
+}
         </style>
     </head>
     <body id="cuerpo">
@@ -81,6 +89,7 @@
               <button type="submit" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
               margin: 0 10px; border-radius: 100px; cursor: pointer;">Agregar</button>  
               </div>
+
                 <br>
                 <div style="display: flex; justify-content: center; align-items: center;">
                         <br>
@@ -90,8 +99,8 @@
                             margin: 0 10px; border-radius: 100px; cursor: pointer;">Pre-order</button>                                                                        
                             <button onclick="recorrido('postOrder')" id="post" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
                             margin: 0 10px; border-radius: 100px; cursor: pointer;">Post-order</button> 
-                           
                             </div>
+
                             <br>
                               
                             <div style="display: flex; justify-content: center; align-items: center;">
@@ -99,16 +108,16 @@
                               margin: 0 10px; border-radius: 100px; cursor: pointer;">Manual de Usuario</button>
                             <button onclick="save()" class="botones" style="background: #ffffff;color: rgb(0, 0, 0);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
                             margin: 0 10px; border-radius: 100px; cursor: pointer;">Guardar</button>
-                          
                             <input type="file" id="import" class="botones" style="width: 175px;">
                           </div>
             </form>          
             <div class="tree center">
-              <canvas id='myCanvas' width="200" height="400"></canvas><script type="text/javascript" src="arbol.js"></script>
-
-    
-              
+              <canvas id='myCanvas' ></canvas><script type="text/javascript" src="arbol.js"></script> 
         </div>
+
+
+      </div>
+    </div>
       </center>
     
     </body>
