@@ -13,7 +13,7 @@ var edges = new vis.DataSet([]);
 
 var edgeList = [];
 var g, gFinal;
-
+var numneg=1;
 nodeNum=0;
 let namesnodosmts = [];
 var idtest = 100;
@@ -713,11 +713,26 @@ function updateTable(from, to, weight) {
         node2: to,
         weight: weight
     });
-
     
 }
 function respuestk(){
     idtest=110;
+    if(numneg==-1){
+        for(var i=0; i<edgeList.length;i++){
+            edgeList[i].weight=edgeList[i].weight*-1 
+        }
+    }
+    numneg=1;
+    addnodemts();
+}
+function respuestkmin(){
+    idtest=110;
+    if(1==1){
+        for(var i=0; i<edgeList.length;i++){
+            edgeList[i].weight=edgeList[i].weight*-1 
+        }
+    }
+    numneg=-1;
     addnodemts();
 }
 function updateGraph() {
@@ -750,7 +765,7 @@ function updateGraph() {
           from: v,
           to: w,
           length: e.weight,
-          label: '' + e.weight,
+          label: '' + (e.weight*numneg),
           color: '#ff0000',
           value: 2
       });
@@ -781,7 +796,7 @@ function updateGraph() {
               from: v,
               to: w,
               length: e.weight,
-              label: '' + e.weight
+              label: '' + (e.weight *numneg)
           });
       };
     }
