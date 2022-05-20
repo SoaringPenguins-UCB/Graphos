@@ -310,7 +310,7 @@ function asignacion(task) {
                     solution = permutations[i];
                 }
             }
-            response.message = response.message.concat("El costo maximo es = ", resultCost, "\n");
+            response.message = response.message.concat("El atributo maximo es = ", resultCost, "\n");
             //edges.update({color:"#FFFFFF"});
         }
         if (task == "min") {
@@ -326,7 +326,7 @@ function asignacion(task) {
                     solution = permutations[i];
                 }
             }
-            response.message = response.message.concat("El costo minimo es = ", resultCost, "\n");
+            response.message = response.message.concat("El atributo minimo es = ", resultCost, "\n");
             // edges.update({color:"#e80505"});
         }
         for (let i = 0; i < info.destinies.length; i++) {
@@ -385,7 +385,7 @@ function asignacion(task) {
                     solution = permutations[i];
                 }
             }
-            alert("El costo maximo es = ", resultCost, "\n");
+            alert("El atributo maximo es = ", resultCost, "\n");
         }
         if (task == "min") {
             document.getElementById("matrizFinal").innerHTML = "";
@@ -401,7 +401,7 @@ function asignacion(task) {
 
                 }
             }
-            response.message = response.message.concat("El costo minimo es = ", resultCost, " <br> \n");
+            response.message = response.message.concat("El atributo minimo es = ", resultCost, " <br> \n");
             // console.log("minimus");
 
         }

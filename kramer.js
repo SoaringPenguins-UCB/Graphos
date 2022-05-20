@@ -394,7 +394,7 @@ function noroeste(matrizad, nodes, task){
                 }
             }
         }
-        alert("El costo total es " + total_cost.toString());
+        alert("El atributo total es " + total_cost.toString());
     }
     else{
         alert("La demanda no coincide con la disponibilidad");

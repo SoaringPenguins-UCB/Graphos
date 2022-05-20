@@ -820,8 +820,8 @@ for (let i = 0; i < matsol.length; i++) {
       if (mayor == 0) {
         //finished maximizacion
         //imprimir costo maximo y matsol
-        console.log("maximizado exitoso; costo = " + costo)
-        response.message = response.message.concat("maximizado exitoso \n costo = ", costo, "");
+        console.log("maximizado exitoso; atributo = " + costo)
+        response.message = response.message.concat("maximizado exitoso \n atributo = ", costo, "");
         console.log(matsol)
         mostrarMatrizsol(matsol,orig,dest);
         falta = false
@@ -832,8 +832,8 @@ for (let i = 0; i < matsol.length; i++) {
       if (menor == 0) {
         //finished minimizacion
         //imprimir costo minimo y matsol
-        console.log("minimizado 2 exitoso; costo = " + costo)
-        response.message = response.message.concat("minimizado exitoso \n costo = ", costo, "");
+        console.log("minimizado 2 exitoso; atributo = " + costo)
+        response.message = response.message.concat("minimizado exitoso \n atributo = ", costo, "");
         console.log(matsol)
         mostrarMatrizsol(matsol,orig,dest);
         falta = false
@@ -992,14 +992,14 @@ for (let i = 0; i < matsol.length; i++) {
     }
     if (noeqaux == true) {
       if (maximizando) {
-        console.log("maximizado exitoso; costo = " + costo)
-        response.message = response.message.concat("maximizado exitoso \n costo = ", costo, "");
+        console.log("maximizado exitoso; atributo = " + costo)
+        response.message = response.message.concat("maximizado exitoso \n atributo = ", costo, "");
         console.log(matsol)
         mostrarMatrizsol(matsol,orig,dest);
         falta = false
       } else {
-        console.log("minimizado exitoso; costo = " + costo)
-        response.message = response.message.concat("minimizado exitoso \n costo = ", costo, "");
+        console.log("minimizado exitoso; atributo = " + costo)
+        response.message = response.message.concat("minimizado exitoso \n atributo = ", costo, "");
         console.log(matsol)
         mostrarMatrizsol(matsol,orig,dest);
         falta = false
