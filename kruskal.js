@@ -698,6 +698,8 @@ function addnodemts() {
     edgeList.forEach(edge => {
         g.addEdge(new jsgraphs.Edge(edge.node1, edge.node2, edge.weight));
     })
+    console.log("aqui??????????????????")
+    console.log(g)
     updateGraph();
 }
 
@@ -723,6 +725,8 @@ function respuestk(){
         }
     }
     numneg=1;
+    console.log("min")
+    console.log(edgeList)
     addnodemts();
 }
 function respuestkmin(){
@@ -733,6 +737,8 @@ function respuestkmin(){
         }
     }
     numneg=-1;
+    console.log("max")
+    console.log(edgeList)
     addnodemts();
 }
 function updateGraph() {

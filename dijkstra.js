@@ -153,11 +153,23 @@ function ver() {
   var nueva_matriz2 = new construir_matriz2(nodos_dia, id_dia, aristas_a, aristas);
 
   var matrizEjemplo= [
+   /* [1, 1,1],
     [1, 1,1],
-    [1, 1,1],
-    [1, 1,1]
+    [1, 1,1]*/
   ];
-  
+  for (let i = 0; i < nodos_dia.length; i++) {
+    matrizEjemplo.push(new Array(nodos_dia.length))
+  }
+
+  for (let i = 0; i < matrizEjemplo.length; i++) {
+    for (let j = 0; j < matrizEjemplo[0].length; j++) {
+        matrizEjemplo[i][j]=1
+    }
+  }
+
+  console.log('abcdeffffffffffffffffffffffffffffffffffffffffffff');
+  console.log(matrizEjemplo);
+
  // var Graph = require('node-dijkstras');
  for (let i = 0; i < nueva_matriz2.length; i++) {
 
@@ -189,13 +201,13 @@ function ver() {
 console.log("objetoooooo")
 console.log(g)
 console.log("type22222   "+ typeof({B:1}))
-var h = new Graph();
+/*var h = new Graph();
   h.addVertex('A', {B:1});
   h.addVertex('B', {A:1, C:2, D: 4});
   h.addVertex('C', {B:2, D:1});
   h.addVertex('D', {C:1, B:4});
   console.log("objetoooooo222222")
-console.log(h)
+console.log(h)*/
   
 var lol = g.shortestPath(inicio.toString(), fin.toString()); // => ['A', 'B', 'C', 'D']
 console.log(lol)
@@ -223,7 +235,15 @@ lol2 = lol2.slice(0, -1);
   document.getElementById("vernodos").textContent = lol2;
   //aqui termina el codigo antiguo
 
-
+  let sumita =0
+  for (let i = 0; i < matrizEjemplo.length; i++) {
+    for (let j = 0; j < matrizEjemplo[0].length; j++) {
+      if(matrizEjemplo[i][j]==0){
+        sumita+=nueva_matriz2[i][j]
+      }
+    }
+  }
+  alert("suma de la ruta = "+sumita/2);
 
 
 }
@@ -637,6 +657,8 @@ function mostrarMatrizsol(matrizsol) {
   let mosmatriz = "Matriz Solucion: "+"<br>";
   console.log("bbbbbbbbbbb")
   console.log(matrizsol)
+  console.log("bbbbbbbbbbbccccccccccccccccccccc")
+  console.log(mosmatriz)
   let la = matrizsol.length;
   for (var i = 0; i < la; i++) {
     let las = matrizsol[i].length;
