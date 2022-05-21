@@ -11,6 +11,8 @@ var nodes = new vis.DataSet([]);
 // Default array with edges.
 var edges = new vis.DataSet([]);
 
+var sumita = 0
+
 var edgeList = [];
 var g, gFinal;
 var numneg=1;
@@ -728,6 +730,7 @@ function respuestk(){
     console.log("min")
     console.log(edgeList)
     addnodemts();
+    alert("suma de la ruta = "+sumita);
 }
 function respuestkmin(){
     idtest=110;
@@ -740,6 +743,7 @@ function respuestkmin(){
     console.log("max")
     console.log(edgeList)
     addnodemts();
+    alert("suma de la ruta = "+sumita);
 }
 function updateGraph() {
     gFinal = g;
@@ -814,7 +818,22 @@ function updateGraph() {
 
     // create an array with edges
     var edges = new vis.DataSet(g_edges);
+    console.log("dasdsadsadasdsadasdasdsa");
+    console.log(g_edges); 
 
+    sumita = 0
+    g_edges.forEach(edge => {
+        console.log("abc: "+edge.color)
+        if(edge.color!=undefined){
+            console.log("dentro "+edge.label)
+            console.log(typeof(edge.label))
+            sumita+=parseInt(edge.label)
+        }
+        
+    })
+
+    console.log("sumita: "+sumita)
+    
     // create a network
     var container = document.getElementById('mynetwork2');
     var data = {
