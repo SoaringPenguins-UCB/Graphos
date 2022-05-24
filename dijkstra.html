@@ -223,31 +223,40 @@
       <h2>SOARING PENGUINS</h2>
     </center>
     <aside id="columna2">
+      <nav id="menu2">
       <a href="Jhonson.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
                 margin: 0 10px; border-radius: 100px; cursor: pointer;">JOHNSON</a>
-      <a href="asignacion.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+    <br> <br> <a href="asignacion.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
       margin: 0 10px; border-radius: 100px; cursor: pointer;">ASIGNACION</a>
-      <a href="noroeste.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+   <br> <br>  <a href="noroeste.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
       margin: 0 10px; border-radius: 100px; cursor: pointer;">NOROESTE</a>
-      <a href="sort.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+   <br> <br>  <a href="sort.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
       margin: 0 10px; border-radius: 100px; cursor: pointer;">SORTS</a>
-      <a href="trees.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+   <br> <br>  <a href="trees.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
       margin: 0 10px; border-radius: 100px; cursor: pointer;">ARBOLES</a>
-            <a href="kruskal.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+    <br> <br>       <a href="kruskal.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
             margin: 0 10px; border-radius: 100px; cursor: pointer;">KRUSKAL</a>
-            <a href="dijkstra.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
+      <br>  <br>    <a href="dijkstra.html" id="in" class="botones" style="background: #023d90;color: rgb(255, 255, 255);font-size: 12px;text-decoration: none; padding: 15px 20px;	display: inline-block;
             margin: 0 10px; border-radius: 100px; cursor: pointer;">DIJKSTRA</a>
+             </nav>
   </aside>
     <aside id="columna">
       <nav id="menu">
         <li><button type="button" class="btn btn-primary" id="export_button" onclick="ver()">Resultado</button></li><br>
-        <li><button type="button" class="btn btn-primary " id="export_button1" onclick="actualizar()">Nuevo</button>
-        </li><br>
+       
         <li><button type="button" class="btn btn-primary " id="export_button2"
             onclick="location.href='muDijkstra.html'">Manual</button></li><br>
 
         <li> <button type="button" onclick="MostrarMatriz()" class="btn btn-success">Mostrar Matriz</button>
-        </li>
+        </li><br>
+
+        
+          
+              <li>  <button  onclick="descarga()" type="button" class="btn btn-primary ">Guardar</button></li><br><br>
+             
+                 <li> <input id="p0" class="form-control form-control-lg" id="import" type="file"></li>
+              
+            
       </nav>
     </aside>
   </header>
@@ -315,7 +324,7 @@
         border-collapse: collapse;
         border-spacing: 0;
       }
-
+      #p0 { text-indent: 4em; }
       .tg td {
         border-color: black;
         border-style: solid;
@@ -395,16 +404,7 @@
 
 
   </center>
-  <center>
-    <!--    <div class="d-grid gap-2" width=100px>-->
-          <button type="button" onclick="descarga()" class="btn btn-success">Guardar</button>
-    <!--       <button type="button" onclick="mostrarMatrizsol()" class="btn btn-success">Mostrar Matriz</button>-->
-  
-       <!-- </div>-->
-       <div>
-        <input class="form-control form-control-lg" id="import" type="file">
-      </div>
-      </center>
+
       <script src="dijkstra.js"></script>
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
