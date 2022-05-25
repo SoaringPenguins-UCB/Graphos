@@ -73,7 +73,7 @@
             var nr;
             console.log(names_nodo);
             while (!label) {
-              label = prompt("Ingresa el nombre del nodo", "nodo" + conta);
+              label = prompt("Ingresa el nombre del nodo");
               console.log("wsadas")
               if (names_nodo.length != 0) {
                 console.log("banif")
@@ -210,6 +210,7 @@
         draw();
       }
 
+      
   </script>
   <!-- Custom styles for this template -->
 </head>
@@ -256,7 +257,7 @@
           
               <li>  <button  onclick="descarga()" type="button" class="btn btn-primary ">Guardar</button></li><br><br>
              
-                 <li> <input id="p0" class="form-control form-control-lg" id="import" type="file"></li>
+                 <li> <input  class="form-control form-control-lg" id="import" type="file"></li>
               
             
       </nav>
@@ -326,7 +327,7 @@
         border-collapse: collapse;
         border-spacing: 0;
       }
-      #p0 { text-indent: 4em; }
+      #import { text-indent: 4em; }
       .tg td {
         border-color: black;
         border-style: solid;

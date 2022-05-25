@@ -216,6 +216,8 @@ console.log("longitud = "+lol.length)
 for (let i = 0; i < (lol.length)-1; i++) {
         matrizEjemplo[parseInt(lol[i])][parseInt(lol[i+1])]=0
   }
+  console.log("names nodo")
+  console.log(nodos_dia)
   mostrarMatrizsol(matrizEjemplo);
   for (let i = 0; i < (lol.length)-1; i++) {
     matrizEjemplo[parseInt(lol[i+1])][parseInt(lol[i])]=0
@@ -659,9 +661,19 @@ function mostrarMatrizsol(matrizsol) {
   console.log(matrizsol)
   console.log("bbbbbbbbbbbccccccccccccccccccccc")
   console.log(mosmatriz)
+  mosmatriz = mosmatriz+ "&emsp;";
+  for (let u = 0; u < nodos_dia[0].length; u++) {
+    mosmatriz = mosmatriz + "&nbsp;";
+  }
+  for (let z = 0; z < nodos_dia.length; z++) {
+    mosmatriz = mosmatriz + nodos_dia[z] + " | ";
+  }
+  mosmatriz = mosmatriz + "<br>";
+
   let la = matrizsol.length;
   for (var i = 0; i < la; i++) {
     let las = matrizsol[i].length;
+    mosmatriz = mosmatriz + nodos_dia[i] + " | ";
     for (var j = 0; j < las; j++) {
       mosmatriz = mosmatriz + matrizsol[i][j] + " | ";
     }
@@ -887,6 +899,8 @@ function cargar(dn, de) {
     nodes: nodes,
     edges: edges,
   };
+  console.log("cargando")
+  console.log(data)
   network2 = new vis.Network(container, data, options);
 }
 
@@ -895,6 +909,7 @@ if (network2 != null) {
 }
 
 function leerArchivo(e) {
+  console.log("entraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a leer archivo")
   var archivo = e.target.files[0];
   if (!archivo) {
     return;
@@ -902,6 +917,8 @@ function leerArchivo(e) {
   var lector = new FileReader();
   lector.onload = function (e) {
     var contenido = e.target.result;
+    console.log("contenido")
+  console.log(contenido)
     gf = JSON.parse(contenido);
     cargar(gf["node"], gf["edge"]);
   }
