@@ -758,7 +758,7 @@ function respuestk(){
 }
 function respuestkmin(){
     idtest=110;
-    if(1==1){
+    if(numneg==1){
         for(var i=0; i<edgeList.length;i++){
             edgeList[i].weight=edgeList[i].weight*-1 
         }
