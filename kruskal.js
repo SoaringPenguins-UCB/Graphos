@@ -649,6 +649,29 @@ function descarga() {
 var network2 = null;
 
 function cargar(dn, de) {
+    
+    console.log("nodillos")
+    console.log(dn)
+
+    dn.forEach((linea) => {
+    if (nodes.length === 0) {
+        nodeIdCounter = 0;
+    }
+    namesnodosmts.push(linea.label);
+   /* nodeData.id = nodeIdCounter++;
+    nodeData.label = linea.label;
+    nodeData.title = "Node " + linea.label;*/
+    addnodemts();
+});
+
+
+    console.log("edgecillos")
+    console.log(de)
+    de.forEach((linea) => {
+        console.log(linea.from + "/"+linea.to+"/"+linea.label)
+        addedgemts(linea.from, linea.to, linea.label);
+    });
+    
     nodeIdCounter == dn[dn.length - 1]["id"];
     nodeIdCounter++;
     nodes = new vis.DataSet(dn);
@@ -676,6 +699,7 @@ function leerArchivo(e) {
         var contenido = e.target.result;
         gf = JSON.parse(contenido);
         cargar(gf["node"], gf["edge"]);
+        
     }
     lector.readAsText(archivo);
 }
