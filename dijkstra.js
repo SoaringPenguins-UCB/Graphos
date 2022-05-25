@@ -902,11 +902,12 @@ function cargar(dn, de) {
   console.log("cargando")
   console.log(data)
   network2 = new vis.Network(container, data, options);
+  if (network2 != null) {
+    network = network2;
+  }
 }
 
-if (network2 != null) {
-  network = network2;
-}
+
 
 function leerArchivo(e) {
   console.log("entraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a leer archivo")
@@ -920,6 +921,10 @@ function leerArchivo(e) {
     console.log("contenido")
   console.log(contenido)
     gf = JSON.parse(contenido);
+    console.log("gf nodes")
+    console.log(gf["node"])
+    console.log("gf edges")
+    console.log(gf["edge"])
     cargar(gf["node"], gf["edge"]);
   }
   lector.readAsText(archivo);
