@@ -1,14 +1,14 @@
 const canvas = document.getElementById("myCanvas");
-
-canvas.width = window.innerWidth * 2;
+var centrarx = 300;
+canvas.width = window.innerWidth*2;
 canvas.height = window.innerHeight * 2;
-
+console.log(canvas.width+"width canvas")
 const ctx = canvas.getContext("2d");
 ctx.font = "18px Arial";
 
 function makeNode(x, y, data) {
   ctx.beginPath();
-  ctx.arc(x, y, 15, 0, 2 * Math.PI);
+  ctx.arc(x+centrarx, y, 15, 0, 2 * Math.PI);
   ctx.fillStyle = "#FFFFFF";
   ctx.fill();
   ctx.stroke();
@@ -16,12 +16,12 @@ function makeNode(x, y, data) {
 
 function createText(x, y, data) {
   ctx.fillStyle = "red";
-  ctx.fillText(data, x - 12, y + 8);
+  ctx.fillText(data, x - 12 +centrarx, y + 8);
 }
 
 function joinNode(x, y, toX, toY) {
-  ctx.moveTo(x, y);
-  ctx.lineTo(toX, toY);
+  ctx.moveTo(x+centrarx, y);
+  ctx.lineTo(toX+centrarx, toY);
   ctx.stroke();
 }
 
