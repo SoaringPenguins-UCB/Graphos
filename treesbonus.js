@@ -183,31 +183,18 @@ function recorrido(task) {
   }
 }
 
-//Guardar
-function save() {
-  filename = prompt("Ingrese el nombre del archivo: ");
-  let file = new Blob([JSON.stringify(array)], { type: "aplication/.json" });
-  let a = document.createElement("a");
-  a.href = URL.createObjectURL(file);
-  a.download = filename + ".json";
-  a.click();
-}
-
 function leerArchivo(e) {
   var archivo = e.target.files[0];
   if (!archivo) {
     return;
   }
-  tree = new BST();
-
+  console.log("bancargar");
   var lector = new FileReader();
   lector.onload = function (e) {
     var contenido = e.target.result;
+    console.log("bancargar2"+contenido);
     gf = JSON.parse(contenido);
-    console.log(gf);
-    gf.forEach((a) => {
-      tree.insert(a);
-    });
+    mostrar2(gf);
   };
   lector.readAsText(archivo);
 }
@@ -219,4 +206,61 @@ document
 //Limpiar
 function Limpiar() {
   location.reload();
+}
+
+function getData() {
+  array = [];
+  var valor = document.getElementById("nodo").value;
+  array.push(valor);
+  array.push(";");
+  var valor2 = document.getElementById("nodo2").value;
+  array.push(valor2);
+  array.push(";");
+  var valor3 = document.getElementById("nodo3").value;
+  array.push(valor3);
+  console.log(array);
+  return array;
+}
+
+function toStr() {
+  array = getData();
+  a = array.toString();
+  arr = [];
+  var arra = a.split(",");
+  arra.forEach((a) => {
+    x = a;
+    arr.push(x);
+  });
+
+  console.log(arr);
+  return arr;
+}
+//Guardar
+function save() {
+  const array = toStr();
+  filename = prompt("Ingrese el nombre del archivo: ");
+  let file = new Blob([JSON.stringify(array)], { type: "aplication/.json" });
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(file);
+  a.download = filename + ".txt";
+  a.click();
+}
+function mostrar2(result){
+  var tabla = document.getElementById("nodo");
+  var tabla2 = document.getElementById("nodo2");
+  var tabla3 = document.getElementById("nodo3");
+  val = ""
+  var result2 = result+"";
+  var cad = result2.split(";");
+  for(let j=0; j<cad.length; j++){
+      console.log(cad[j]);
+      
+  }
+  const val1= cad[0].slice(0,-1);
+  tabla.value=val1;
+  const val2= cad[1].slice(1,-1);
+  tabla2.value=val2;
+  const val3= cad[2].slice(1);
+  tabla3.value=val3;
+  console.log("bancargar3"+result2);
 }
